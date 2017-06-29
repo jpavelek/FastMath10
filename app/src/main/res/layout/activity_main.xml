@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="afte9.com.fastmath10.MainActivity">
+    tools:context="com.afte9.fastmath10.MainActivity">
 
     <TextView
         android:id="@+id/textViewScores"
@@ -29,7 +29,7 @@
         android:id="@+id/buttonStartGame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="6dp"
         android:onClick="launchGame"
         android:text="Start challenge"
         app:layout_constraintBottom_toBottomOf="parent"

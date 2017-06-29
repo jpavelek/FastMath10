@@ -4,7 +4,7 @@ android {
     compileSdkVersion 24
     buildToolsVersion "26.0.0"
     defaultConfig {
-        applicationId "afte9.com.fastmath10"
+        applicationId "afte9.com.com.afte9.fastmath10"
         minSdkVersion 16
         targetSdkVersion 24
         versionCode 1

@@ -63,6 +63,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="31dp"
+        android:onClick="firstChoiceMade"
         android:text="11"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -76,24 +77,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:onClick="secondChoiceMade"
         android:text="13"
         android:textSize="30sp"
         android:textStyle="bold"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonChoiceOne"
-        app:layout_constraintHorizontal_bias="0.506" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonChoiceOne" />
 
     <Button
         android:id="@+id/buttonChoiceThree"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:onClick="thirdChoiceMade"
         android:text="9"
         android:textSize="30sp"
         android:textStyle="bold"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonChoiceTwo"
-        app:layout_constraintHorizontal_bias="0.503" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonChoiceTwo" />
 </android.support.constraint.ConstraintLayout>
