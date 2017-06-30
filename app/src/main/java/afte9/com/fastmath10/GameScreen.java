@@ -70,8 +70,9 @@ public class GameScreen extends AppCompatActivity {
 
     private void newMove() {
         updateScore(false);
-        if (level_move >= task_provider.ROUNDS) {
-            //This was last move available, sum up and see how we did
+        if (level_move >= TaskProvider.ROUNDS) {
+            //This was last move available at this level, sum up and see how we did
+
 
         } else {
             //Start new move
