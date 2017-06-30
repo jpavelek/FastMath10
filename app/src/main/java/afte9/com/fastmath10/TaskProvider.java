@@ -48,6 +48,7 @@ public final class TaskProvider {
         this.task_level = TaskLevels.ONE;
         this.speed_level = SpeedLevels.SLOW;
         level_increment = TaskLevels.ONE.getNumVal();
+        level_target = TARGET*level_increment;
         getNextTask(); // to make sure this is not empty
     }
 

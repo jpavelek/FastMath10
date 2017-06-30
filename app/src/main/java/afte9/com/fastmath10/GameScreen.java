@@ -38,6 +38,9 @@ public class GameScreen extends AppCompatActivity {
         level_score = 0;
         level_move = 1;
 
+        ((ProgressBar) findViewById(R.id.progressBar_levelProgress)).setMax(TaskProvider.ROUNDS);
+        ((ProgressBar) findViewById(R.id.progressBar_levelScoreProgress)).setMax(task_provider.getLevelScoreTarget());
+
         newMove();
     }
 
@@ -88,6 +91,8 @@ public class GameScreen extends AppCompatActivity {
             ((ProgressBar) findViewById(R.id.progressBar_time)).setMax(task_provider.getTimeout()/1000);
             ((ProgressBar) findViewById(R.id.progressBar_time)).setProgress(task_provider.getTimeout()/1000);
             ((TextView) findViewById(R.id.textView_test)).setText(task_provider.getTaskVisual());
+            ((ProgressBar) findViewById(R.id.progressBar_levelProgress)).setProgress(level_move);
+            ((ProgressBar) findViewById(R.id.progressBar_levelScoreProgress)).setProgress(level_score);
 
             timer = new CountDownTimer(task_provider.getTimeout(), 1000) {
                 @Override
@@ -109,7 +114,9 @@ public class GameScreen extends AppCompatActivity {
 
     private void updateScore(boolean hit) {
         if (hit) {
-            score = score + task_provider.getLevelScoreIncrement() + remaining_millis / 1000;
+            int scoreIncrement = task_provider.getLevelScoreIncrement() + remaining_millis / 1000;
+            score = score + scoreIncrement;
+            level_score = level_score + scoreIncrement;
         }
         ((TextView) findViewById(R.id.textView_Score)).setText(String.format("Score :%4d", score));
 
