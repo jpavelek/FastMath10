@@ -87,6 +87,7 @@ public class GameScreen extends AppCompatActivity {
             ((Button) findViewById(R.id.buttonChoiceThree)).setText(String.valueOf(result_choices[2]));
             ((ProgressBar) findViewById(R.id.progressBar_time)).setMax(task_provider.getTimeout()/1000);
             ((ProgressBar) findViewById(R.id.progressBar_time)).setProgress(task_provider.getTimeout()/1000);
+            ((TextView) findViewById(R.id.textView_test)).setText(task_provider.getTaskVisual());
 
             timer = new CountDownTimer(task_provider.getTimeout(), 1000) {
                 @Override
