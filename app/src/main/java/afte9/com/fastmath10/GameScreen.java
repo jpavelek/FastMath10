@@ -37,6 +37,7 @@ public class GameScreen extends AppCompatActivity {
         score = 0;
         level_score = 0;
         level_move = 1;
+        task_provider.reset();
 
         ((ProgressBar) findViewById(R.id.progressBar_levelProgress)).setMax(TaskProvider.ROUNDS);
         ((ProgressBar) findViewById(R.id.progressBar_levelScoreProgress)).setMax(task_provider.getLevelScoreTarget());
@@ -75,7 +76,16 @@ public class GameScreen extends AppCompatActivity {
         updateScore(false);
         if (level_move >= TaskProvider.ROUNDS) {
             //This was last move available at this level, sum up and see how we did
-
+            if (level_score > level_target) {
+                //TODO - show some dialog with summary and Continue button
+                task_provider.increaseLevel();
+                level_move = 1;
+                level_score = 0;
+                newMove();
+            } else {
+                //TODO - Not enough score, end game
+                finish();
+            }
 
         } else {
             //Start new move
@@ -123,7 +133,6 @@ public class GameScreen extends AppCompatActivity {
     }
     //If Back arrow clicked, go back
     public boolean onOptionsItemSelected(MenuItem item) {
-        //TODO - Should we just pause the level here and resume from MainScreen?
         finish();
         return true;
     }

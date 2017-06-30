@@ -44,6 +44,10 @@ public final class TaskProvider {
     }
 
     private TaskProvider() {
+        reset();
+    }
+
+    public void reset() {
         //Init to initial speed and task levels
         this.task_level = TaskLevels.ONE;
         this.speed_level = SpeedLevels.SLOW;
