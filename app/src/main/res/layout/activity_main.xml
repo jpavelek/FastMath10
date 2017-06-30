@@ -16,6 +16,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/no_scores"
         android:textAlignment="center"
+        android:gravity="center"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/buttonStartGame"

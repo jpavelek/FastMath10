@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import java.util.concurrent.TimeUnit;
 
 public class GameScreen extends AppCompatActivity {
 
@@ -44,7 +44,7 @@ public class GameScreen extends AppCompatActivity {
     public void firstChoiceMade(View view) {
         level_move++;
         if (this.result_choices[3] == 1) {
-            updateScore();
+            updateScore(true);
         }
         timer.cancel();
         newMove();
@@ -53,7 +53,7 @@ public class GameScreen extends AppCompatActivity {
     public void secondChoiceMade(View view) {
         level_move++;
         if (this.result_choices[3] == 2) {
-            updateScore();
+            updateScore(true);
         }
         timer.cancel();
         newMove();
@@ -62,15 +62,17 @@ public class GameScreen extends AppCompatActivity {
     public void thirdChoiceMade(View view) {
         level_move++;
         if (this.result_choices[3] == 3) {
-            updateScore();
+            updateScore(true);
         }
         timer.cancel();
         newMove();
     }
 
     private void newMove() {
+        updateScore(false);
         if (level_move >= task_provider.ROUNDS) {
             //This was last move available, sum up and see how we did
+
         } else {
             //Start new move
             result = task_provider.getTaskResult();
@@ -82,30 +84,33 @@ public class GameScreen extends AppCompatActivity {
             ((Button) findViewById(R.id.buttonChoiceOne)).setText(String.valueOf(result_choices[0]));
             ((Button) findViewById(R.id.buttonChoiceTwo)).setText(String.valueOf(result_choices[1]));
             ((Button) findViewById(R.id.buttonChoiceThree)).setText(String.valueOf(result_choices[2]));
+            ((ProgressBar) findViewById(R.id.progressBar_time)).setMax(task_provider.getTimeout()/1000);
+            ((ProgressBar) findViewById(R.id.progressBar_time)).setProgress(task_provider.getTimeout()/1000);
 
             timer = new CountDownTimer(task_provider.getTimeout(), 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
-                    ProgressBar bar = (ProgressBar) findViewById(R.id.progressBar);
-                    if (bar == null) return;
-                    bar.setProgress((int) millisUntilFinished / 1000);
+                    ((ProgressBar) findViewById(R.id.progressBar_time)).setProgress((int)millisUntilFinished / 1000 );
                     remaining_millis = (int) millisUntilFinished;
                 }
 
                 @Override
                 public void onFinish() {
-                    //TODO - we ran out of time, move over
+                    // We ran out of time, move over
+                    ((ProgressBar) findViewById(R.id.progressBar_time)).setProgress(0);
                     level_move++;
+                    newMove();
                 }
             }.start();
-
         }
-
     }
 
-    private void updateScore() {
-        score = score + task_provider.getLevelScoreIncrement() + remaining_millis/1000;
-        ((TextView) findViewById(R.id.textView_Score)).setText(String.format("Score :%04d", score));
+    private void updateScore(boolean hit) {
+        if (hit) {
+            score = score + task_provider.getLevelScoreIncrement() + remaining_millis / 1000;
+        }
+        ((TextView) findViewById(R.id.textView_Score)).setText(String.format("Score :%4d", score));
+
     }
     //If Back arrow clicked, go back
     public boolean onOptionsItemSelected(MenuItem item) {

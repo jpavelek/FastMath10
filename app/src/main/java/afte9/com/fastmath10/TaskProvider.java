@@ -17,7 +17,7 @@ public final class TaskProvider {
             return retval;
         }
     }
-    public enum SpeedLevels { SLOW(30000), NORMAL(15000), FAST(5000);
+    public enum SpeedLevels { SLOW(20000), NORMAL(10000), FAST(5000);
         private int retval;
         SpeedLevels(int newVal) {
             this.retval = newVal;
