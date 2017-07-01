@@ -15,15 +15,11 @@ import java.util.concurrent.TimeUnit;
 
 public class GameScreen extends AppCompatActivity {
 
-    private int score;
+    private int total_score;
     private int remaining_millis;
     private int level_score;
-    private int level_target;
     private int level_move;
-    private int level_score_increment;
     private TaskProvider task_provider = TaskProvider.getInstance();
-    private String visual;
-    private int result;
     private int[] result_choices;
     private CountDownTimer timer;
 
@@ -36,7 +32,7 @@ public class GameScreen extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Reset game from start
-        score = 0;
+        total_score = 0;
         level_score = 0;
         level_move = 1;
         task_provider.reset();
@@ -76,7 +72,7 @@ public class GameScreen extends AppCompatActivity {
         updateScore(false);
         if (level_move >= TaskProvider.ROUNDS) {
             //This was last move available at this level, sum up and see how we did
-            if (level_score > level_target) {
+            if (level_score > task_provider.getLevelScoreTarget()) {
                 //TODO - show some dialog with summary and Continue button first
                 updateLevelColors();
                 task_provider.increaseLevel();
@@ -87,18 +83,14 @@ public class GameScreen extends AppCompatActivity {
             } else {
                 //We did not make the level, game ends. Log your name for the score and go back to main
                 Intent intent = new Intent(this, EndGameScreen.class);
-                intent.putExtra("score", score);
+                intent.putExtra("score", total_score);
                 intent.putExtra("level", task_provider.getTaskLevel());
                 intent.putExtra("rank", 11); //TODO - fix this and provide real rank for this score!!!
                 startActivity(intent);
             }
         } else {
             //Start new move
-            result = task_provider.getTaskResult();
-            visual = task_provider.getTaskVisual();
             result_choices = task_provider.getResultChoices();
-            level_score_increment = task_provider.getLevelScoreIncrement();
-            level_target = task_provider.getLevelScoreTarget();
 
             ((Button) findViewById(R.id.buttonChoiceOne)).setText(String.valueOf(result_choices[0]));
             ((Button) findViewById(R.id.buttonChoiceTwo)).setText(String.valueOf(result_choices[1]));
@@ -128,10 +120,10 @@ public class GameScreen extends AppCompatActivity {
     private void updateScore(boolean hit) {
         if (hit) {
             int scoreIncrement = task_provider.getLevelScoreIncrement() + remaining_millis / 1000;
-            score = score + scoreIncrement;
+            total_score = total_score + scoreIncrement;
             level_score = level_score + scoreIncrement;
         }
-        ((TextView) findViewById(R.id.textView_Score)).setText(String.format("Score :%4d", score));
+        ((TextView) findViewById(R.id.textView_Score)).setText(String.format("Score :%4d", total_score));
 
     }
 
