@@ -72,7 +72,7 @@ public class GameScreen extends AppCompatActivity {
         if (level_move >= TaskProvider.ROUNDS) {
             //This was last move available at this level, sum up and see how we did
             if (level_score > task_provider.getLevelScoreTarget()) {
-                //TODO - show some dialog with summary and Continue button first
+                //TODO - show some dialog with summary and Continue button first ?
                 updateLevelColors();
                 task_provider.increaseLevel();
                 ((TextView) findViewById(R.id.textView_level)).setText(String.format(getString(R.string.level_progress),task_provider.getTaskLevel()));

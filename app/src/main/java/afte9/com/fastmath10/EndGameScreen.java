@@ -17,20 +17,17 @@ public class EndGameScreen extends AppCompatActivity {
         setContentView(R.layout.activity_end_game_screen);
 
         Bundle b = getIntent().getExtras();
-
-        int s, l, r;
-        s = b.getInt("score");
-        l = b.getInt("level");
-        r = b.getInt("rank");
-        ((TextView) findViewById(R.id.textView_endgame_summary)).setText(String.format(getString(R.string.end_game_summary_format), s, l, r));
+        ((TextView) findViewById(R.id.textView_endgame_summary)).setText(String.format(getString(R.string.end_game_summary_format), b.getInt("score"), b.getInt("level"), b.getInt("rank")));
     }
 
     public void saveClicked (View view) {
         //TODO - database call to save the name, score and achieved level
-        finish();
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
     }
     public void cancelClicked (View view) {
         //Done here, back to main screen
-        finish();
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
     }
 }
