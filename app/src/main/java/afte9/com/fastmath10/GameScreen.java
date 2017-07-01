@@ -20,7 +20,6 @@ public class GameScreen extends AppCompatActivity {
     private int level_score;
     private int level_move;
     private TaskProvider task_provider = TaskProvider.getInstance();
-    private int[] result_choices;
     private CountDownTimer timer;
 
     @Override
@@ -43,7 +42,7 @@ public class GameScreen extends AppCompatActivity {
 
     public void firstChoiceMade(View view) {
         level_move++;
-        if (this.result_choices[3] == 1) {
+        if (task_provider.getResultChoices()[3] == 1) {
             updateScore(true);
         }
         timer.cancel();
@@ -52,7 +51,7 @@ public class GameScreen extends AppCompatActivity {
 
     public void secondChoiceMade(View view) {
         level_move++;
-        if (this.result_choices[3] == 2) {
+        if (task_provider.getResultChoices()[3] == 2) {
             updateScore(true);
         }
         timer.cancel();
@@ -61,7 +60,7 @@ public class GameScreen extends AppCompatActivity {
 
     public void thirdChoiceMade(View view) {
         level_move++;
-        if (this.result_choices[3] == 3) {
+        if (task_provider.getResultChoices()[3] == 3) {
             updateScore(true);
         }
         timer.cancel();
@@ -90,11 +89,10 @@ public class GameScreen extends AppCompatActivity {
             }
         } else {
             //Start new move
-            result_choices = task_provider.getResultChoices();
 
-            ((Button) findViewById(R.id.buttonChoiceOne)).setText(String.valueOf(result_choices[0]));
-            ((Button) findViewById(R.id.buttonChoiceTwo)).setText(String.valueOf(result_choices[1]));
-            ((Button) findViewById(R.id.buttonChoiceThree)).setText(String.valueOf(result_choices[2]));
+            ((Button) findViewById(R.id.buttonChoiceOne)).setText(String.valueOf(task_provider.getResultChoices()[0]));
+            ((Button) findViewById(R.id.buttonChoiceTwo)).setText(String.valueOf(task_provider.getResultChoices()[1]));
+            ((Button) findViewById(R.id.buttonChoiceThree)).setText(String.valueOf(task_provider.getResultChoices()[2]));
             ((ProgressBar) findViewById(R.id.progressBar_time)).setMax(task_provider.getTimeout()/1000);
             ((ProgressBar) findViewById(R.id.progressBar_time)).setProgress(task_provider.getTimeout()/1000);
             ((TextView) findViewById(R.id.textView_test)).setText(task_provider.getTaskVisual());
