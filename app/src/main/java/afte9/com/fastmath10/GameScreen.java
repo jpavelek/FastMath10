@@ -69,6 +69,7 @@ public class GameScreen extends AppCompatActivity {
 
     private void newMove() {
         updateScore(false);
+        task_provider.getNextTask();
         if (level_move >= TaskProvider.ROUNDS) {
             //This was last move available at this level, sum up and see how we did
             if (level_score > task_provider.getLevelScoreTarget()) {
@@ -89,7 +90,6 @@ public class GameScreen extends AppCompatActivity {
             }
         } else {
             //Start new move
-
             ((Button) findViewById(R.id.buttonChoiceOne)).setText(String.valueOf(task_provider.getResultChoices()[0]));
             ((Button) findViewById(R.id.buttonChoiceTwo)).setText(String.valueOf(task_provider.getResultChoices()[1]));
             ((Button) findViewById(R.id.buttonChoiceThree)).setText(String.valueOf(task_provider.getResultChoices()[2]));
