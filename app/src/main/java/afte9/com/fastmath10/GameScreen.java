@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.util.Timer;
 import java.util.concurrent.TimeUnit;
 
 public class GameScreen extends AppCompatActivity {
@@ -44,6 +45,8 @@ public class GameScreen extends AppCompatActivity {
         level_move++;
         if (task_provider.getResultChoices()[3] == 1) {
             updateScore(true);
+        } else {
+            blinkScreen();
         }
         timer.cancel();
         newMove();
@@ -53,6 +56,8 @@ public class GameScreen extends AppCompatActivity {
         level_move++;
         if (task_provider.getResultChoices()[3] == 2) {
             updateScore(true);
+        } else {
+            blinkScreen();
         }
         timer.cancel();
         newMove();
@@ -62,9 +67,25 @@ public class GameScreen extends AppCompatActivity {
         level_move++;
         if (task_provider.getResultChoices()[3] == 3) {
             updateScore(true);
+        } else {
+            blinkScreen();
         }
         timer.cancel();
         newMove();
+    }
+
+    private void blinkScreen() {
+        ((View) findViewById(R.id.layout_top)).setAlpha((float)0.2);
+
+        CountDownTimer t = new CountDownTimer(300, 300) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+            }
+            @Override
+            public void onFinish() {
+                ((View) findViewById(R.id.layout_top)).setAlpha((float)1.0);
+            }
+        }.start();
     }
 
     private void newMove() {

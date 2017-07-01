@@ -2,9 +2,10 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_top"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="afte9.com.fastmath10.GameScreen" >
+    tools:context="afte9.com.fastmath10.GameScreen">
 
     <TextView
         android:id="@+id/textView_Score"
@@ -107,10 +108,10 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:text="@string/level_progress_default"
+        app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintHorizontal_bias="0.50"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="parent" />
+        app:layout_constraintRight_toRightOf="parent" />
 
     <ImageView
         android:id="@+id/imageView_l01"
@@ -121,8 +122,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_test"
         app:srcCompat="@android:color/holo_blue_bright"
-        tools:layout_editor_absoluteX="43dp"
-        />
+        tools:layout_editor_absoluteX="43dp" />
 
     <ImageView
         android:id="@+id/imageView_l02"
@@ -132,8 +132,7 @@
         android:layout_marginTop="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_test"
-        app:srcCompat="@android:color/holo_blue_dark"
-        />
+        app:srcCompat="@android:color/holo_blue_dark" />
 
     <ImageView
         android:id="@+id/imageView_l03"

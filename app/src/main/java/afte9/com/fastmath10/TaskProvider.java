@@ -5,8 +5,8 @@ import java.util.Random;
 
 public final class TaskProvider {
     private static final TaskProvider ourInstance = new TaskProvider();
-    private static final int TARGET = 4; //Six out of 10 is target
-    public static final int ROUNDS = 5; //Ten tasks per round/level
+    private static final int TARGET = 7; //Six out of 10 is target
+    public static final int ROUNDS = 10; //Ten tasks per round/level
 
     private TaskLevels task_level;
     private SpeedLevels speed_level;
@@ -20,7 +20,7 @@ public final class TaskProvider {
 
     public enum TaskLevels { ONE(100), TWO(200), THREE(300), FOUR(400), FIVE(500), SIX(1000), SEVEN(1500);
         private int retval;
-        TaskLevels (int newVal) {this.retval = newVal; }
+        TaskLevels (int newVal) { this.retval = newVal; }
         public TaskLevels getNext() {
             if (this == SEVEN) return SEVEN;
             else return TaskLevels.values()[this.ordinal() +1];
