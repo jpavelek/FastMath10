@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -38,10 +39,8 @@ public class GameScreen extends AppCompatActivity {
         level_score = 0;
         level_move = 1;
         task_provider.reset();
-
-        ((ProgressBar) findViewById(R.id.progressBar_levelProgress)).setMax(TaskProvider.ROUNDS);
-        ((ProgressBar) findViewById(R.id.progressBar_levelScoreProgress)).setMax(task_provider.getLevelScoreTarget());
-
+        dimLevelColors();
+        ((TextView) findViewById(R.id.textView_level)).setText(String.format("Level :%2d",task_provider.getTaskLevel()));
         newMove();
     }
 
@@ -78,7 +77,9 @@ public class GameScreen extends AppCompatActivity {
             //This was last move available at this level, sum up and see how we did
             if (level_score > level_target) {
                 //TODO - show some dialog with summary and Continue button
+                updateLevelColors();
                 task_provider.increaseLevel();
+                ((TextView) findViewById(R.id.textView_level)).setText(String.format("Level :%2d",task_provider.getTaskLevel()));
                 level_move = 1;
                 level_score = 0;
                 newMove();
@@ -101,8 +102,6 @@ public class GameScreen extends AppCompatActivity {
             ((ProgressBar) findViewById(R.id.progressBar_time)).setMax(task_provider.getTimeout()/1000);
             ((ProgressBar) findViewById(R.id.progressBar_time)).setProgress(task_provider.getTimeout()/1000);
             ((TextView) findViewById(R.id.textView_test)).setText(task_provider.getTaskVisual());
-            ((ProgressBar) findViewById(R.id.progressBar_levelProgress)).setProgress(level_move);
-            ((ProgressBar) findViewById(R.id.progressBar_levelScoreProgress)).setProgress(level_score);
 
             timer = new CountDownTimer(task_provider.getTimeout(), 1000) {
                 @Override
@@ -131,6 +130,100 @@ public class GameScreen extends AppCompatActivity {
         ((TextView) findViewById(R.id.textView_Score)).setText(String.format("Score :%4d", score));
 
     }
+
+    private void dimLevelColors() {
+        findViewById(R.id.imageView_l01).setAlpha((float)0.15);
+        findViewById(R.id.imageView_l02).setAlpha((float)0.15);
+        findViewById(R.id.imageView_l03).setAlpha((float)0.15);
+        findViewById(R.id.imageView_l04).setAlpha((float)0.15);
+        findViewById(R.id.imageView_l05).setAlpha((float)0.15);
+        findViewById(R.id.imageView_l06).setAlpha((float)0.15);
+        findViewById(R.id.imageView_l07).setAlpha((float)0.15);
+        findViewById(R.id.imageView_l08).setAlpha((float)0.15);
+        findViewById(R.id.imageView_l09).setAlpha((float)0.15);
+        findViewById(R.id.imageView_l10).setAlpha((float)0.15);
+        findViewById(R.id.imageView_l11).setAlpha((float)0.15);
+        findViewById(R.id.imageView_l12).setAlpha((float)0.15);
+        findViewById(R.id.imageView_l13).setAlpha((float)0.15);
+        findViewById(R.id.imageView_l14).setAlpha((float)0.15);
+        findViewById(R.id.imageView_l15).setAlpha((float)0.15);
+        findViewById(R.id.imageView_l16).setAlpha((float)0.15);
+        findViewById(R.id.imageView_l17).setAlpha((float)0.15);
+        findViewById(R.id.imageView_l18).setAlpha((float)0.15);
+        findViewById(R.id.imageView_l19).setAlpha((float)0.15);
+        findViewById(R.id.imageView_l20).setAlpha((float)0.15);
+        findViewById(R.id.imageView_l21).setAlpha((float)0.15);
+    }
+
+    private void updateLevelColors() {
+        switch (task_provider.getTaskLevel()) {
+            case 1:
+                findViewById(R.id.imageView_l01).setAlpha((float)1.0);
+                break;
+            case 2:
+                findViewById(R.id.imageView_l02).setAlpha((float)1.0);
+                break;
+            case 3:
+                findViewById(R.id.imageView_l03).setAlpha((float)1.0);
+                break;
+            case 4:
+                findViewById(R.id.imageView_l04).setAlpha((float)1.0);
+                break;
+            case 5:
+                findViewById(R.id.imageView_l05).setAlpha((float)1.0);
+                break;
+            case 6:
+                findViewById(R.id.imageView_l06).setAlpha((float)1.0);
+                break;
+            case 7:
+                findViewById(R.id.imageView_l07).setAlpha((float)1.0);
+                break;
+            case 8:
+                findViewById(R.id.imageView_l08).setAlpha((float)1.0);
+                break;
+            case 9:
+                findViewById(R.id.imageView_l09).setAlpha((float)1.0);
+                break;
+            case 10:
+                findViewById(R.id.imageView_l10).setAlpha((float)1.0);
+                break;
+            case 11:
+                findViewById(R.id.imageView_l11).setAlpha((float)1.0);
+                break;
+            case 12:
+                findViewById(R.id.imageView_l12).setAlpha((float)1.0);
+                break;
+            case 13:
+                findViewById(R.id.imageView_l13).setAlpha((float)1.0);
+                break;
+            case 14:
+                findViewById(R.id.imageView_l14).setAlpha((float)1.0);
+                break;
+            case 15:
+                findViewById(R.id.imageView_l15).setAlpha((float)1.0);
+                break;
+            case 16:
+                findViewById(R.id.imageView_l16).setAlpha((float)1.0);
+                break;
+            case 17:
+                findViewById(R.id.imageView_l17).setAlpha((float)1.0);
+                break;
+            case 18:
+                findViewById(R.id.imageView_l18).setAlpha((float)1.0);
+                break;
+            case 19:
+                findViewById(R.id.imageView_l19).setAlpha((float)1.0);
+                break;
+            case 20:
+                findViewById(R.id.imageView_l20).setAlpha((float)1.0);
+                break;
+            case 21:
+                findViewById(R.id.imageView_l21).setAlpha((float)1.0);
+                break;
+        }
+    }
+
+
     //If Back arrow clicked, go back
     public boolean onOptionsItemSelected(MenuItem item) {
         finish();

@@ -38,6 +38,7 @@ public final class TaskProvider {
     private String task_visual;
     private int level_target;
     private int level_increment;
+    private int task_level_ordinal;
 
     public static TaskProvider getInstance() {
         return ourInstance;
@@ -49,8 +50,9 @@ public final class TaskProvider {
 
     public void reset() {
         //Init to initial speed and task levels
-        this.task_level = TaskLevels.ONE;
-        this.speed_level = SpeedLevels.SLOW;
+        task_level_ordinal = 1;
+        task_level = TaskLevels.ONE;
+        speed_level = SpeedLevels.SLOW;
         level_increment = TaskLevels.ONE.getNumVal();
         level_target = TARGET*level_increment;
         getNextTask(); // to make sure this is not empty
@@ -60,6 +62,7 @@ public final class TaskProvider {
         // Returns new timeout in milliseconds
         // Increases level targets and rewards.
 
+        task_level_ordinal++;
         switch (task_level) {
             case ONE:
                 level_increment = level_increment + TaskLevels.ONE.getNumVal();
@@ -121,4 +124,6 @@ public final class TaskProvider {
     public int getTimeout() {
         return speed_level.getNumVal();
     }
+
+    public int getTaskLevel() { return task_level_ordinal; }
 }
