@@ -1,5 +1,6 @@
 package afte9.com.fastmath10;
 
+import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -76,7 +77,7 @@ public class GameScreen extends AppCompatActivity {
         if (level_move >= TaskProvider.ROUNDS) {
             //This was last move available at this level, sum up and see how we did
             if (level_score > level_target) {
-                //TODO - show some dialog with summary and Continue button
+                //TODO - show some dialog with summary and Continue button first
                 updateLevelColors();
                 task_provider.increaseLevel();
                 ((TextView) findViewById(R.id.textView_level)).setText(String.format("Level :%2d",task_provider.getTaskLevel()));
@@ -84,10 +85,13 @@ public class GameScreen extends AppCompatActivity {
                 level_score = 0;
                 newMove();
             } else {
-                //TODO - Not enough score, end game
-                finish();
+                //We did not make the level, game ends. Log your name for the score and go back to main
+                Intent intent = new Intent(this, EndGameScreen.class);
+                intent.putExtra("score", score);
+                intent.putExtra("level", task_provider.getTaskLevel());
+                intent.putExtra("rank", 11); //TODO - fix this and provide real rank for this score!!!
+                startActivity(intent);
             }
-
         } else {
             //Start new move
             result = task_provider.getTaskResult();

@@ -1,4 +1,5 @@
 <resources>
+    <string name="start_challenge">Start challenge</string>
     <string name="app_name">Fast Math 10</string>
     <string name="action_reset_scores">Reset scores</string>
     <string name="no_scores">No scores ... yet</string>
@@ -8,4 +9,9 @@
     <string name="default_empty_answer">5</string>
     <string name="level_progress">Level :%2d</string>
     <string name="level_progress_default">Level: 0</string>
+    <string name="end_game_message">Would you like to save your name for the score?</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="button_save">Save</string>
+    <string name="end_game_summary_default">You scored 333 points at level 2\n\nYou achieved rank #11</string>
+    <string name="end_game_summary_format" formatted="false">You scored %d points at level %02d\n\nYou achieved rank #%d</string>
 </resources>
