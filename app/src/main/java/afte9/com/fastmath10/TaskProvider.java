@@ -210,6 +210,11 @@ public final class TaskProvider {
                 break;
         }
         //TODO - mix order of results randomly, update correct resutl position
+        a = task_choices[0];
+        b = task_choices[1];
+        c = task_choices[2];
+        int right = task_choices[3];
+
     }
 
     public String getTaskVisual() {
