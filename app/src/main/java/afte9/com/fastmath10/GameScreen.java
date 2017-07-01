@@ -36,7 +36,7 @@ public class GameScreen extends AppCompatActivity {
         level_move = 1;
         task_provider.reset();
         dimLevelColors();
-        ((TextView) findViewById(R.id.textView_level)).setText(String.format("Level :%2d",task_provider.getTaskLevel()));
+        ((TextView) findViewById(R.id.textView_level)).setText(String.format(getString(R.string.level_progress),task_provider.getTaskLevel()));
         newMove();
     }
 
@@ -75,7 +75,7 @@ public class GameScreen extends AppCompatActivity {
                 //TODO - show some dialog with summary and Continue button first
                 updateLevelColors();
                 task_provider.increaseLevel();
-                ((TextView) findViewById(R.id.textView_level)).setText(String.format("Level :%2d",task_provider.getTaskLevel()));
+                ((TextView) findViewById(R.id.textView_level)).setText(String.format(getString(R.string.level_progress),task_provider.getTaskLevel()));
                 level_move = 1;
                 level_score = 0;
                 newMove();
@@ -121,7 +121,7 @@ public class GameScreen extends AppCompatActivity {
             total_score = total_score + scoreIncrement;
             level_score = level_score + scoreIncrement;
         }
-        ((TextView) findViewById(R.id.textView_Score)).setText(String.format("Score :%4d", total_score));
+        ((TextView) findViewById(R.id.textView_Score)).setText(String.format(getString(R.string.score_formatted), total_score));
 
     }
 
