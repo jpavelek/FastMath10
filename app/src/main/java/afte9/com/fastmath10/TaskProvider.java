@@ -209,12 +209,11 @@ public final class TaskProvider {
             default:
                 break;
         }
-        //TODO - mix order of results randomly, update correct resutl position
-        a = task_choices[0];
-        b = task_choices[1];
-        c = task_choices[2];
-        int right = task_choices[3];
-
+        int seed = r.nextInt(3);
+        a = task_choices[seed];
+        task_choices[seed] = task_choices[2]; //the current correct answer swapped to new random position
+        task_choices[2] = a;
+        task_choices[3] = seed+1; //save the new correct position
     }
 
     public String getTaskVisual() {
