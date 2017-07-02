@@ -1,7 +1,10 @@
 package afte9.com.fastmath10;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.CountDownTimer;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -94,17 +97,31 @@ public class GameScreen extends AppCompatActivity {
         if (level_move >= TaskProvider.ROUNDS) {
             //This was last move available at this level, sum up and see how we did
             if (level_score > task_provider.getLevelScoreTarget()) {
-                //TODO - show some dialog with summary and Continue button first ?
-                updateLevelColors();
-                task_provider.increaseLevel();
-                ((TextView) findViewById(R.id.textView_level)).setText(String.format(getString(R.string.level_progress),task_provider.getTaskLevel()));
-                level_move = 1;
-                level_score = 0;
-                newMove();
+
+                AlertDialog.Builder builder;
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
+                } else {
+                    builder = new AlertDialog.Builder(this);
+                }
+
+                builder.setTitle("Level finished")
+                        .setMessage(String.format("You scored %d points.\nTotal %d points.", level_score, total_score))
+                        .setPositiveButton(R.string.button_continue, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                updateLevelColors();
+                                task_provider.increaseLevel();
+                                ((TextView) findViewById(R.id.textView_level)).setText(String.format(getString(R.string.level_progress),task_provider.getTaskLevel()));
+                                level_move = 1;
+                                level_score = 0;
+                                newMove();
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
             } else {
                 //We did not make the level, game ends. Log your name for the score and go back to main
-
-                //Back to Home
                 Intent intent = new Intent(this, EndGameScreen.class);
                 intent.putExtra("score", total_score);
                 intent.putExtra("level", task_provider.getTaskLevel());
