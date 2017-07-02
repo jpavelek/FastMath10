@@ -2,6 +2,7 @@ package afte9.com.fastmath10;
 
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -41,5 +42,14 @@ public class ScoreDbHelper extends SQLiteOpenHelper {
     @Override
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);
+    }
+
+    public boolean checkDb(SQLiteDatabase db) {
+        Cursor mCursor = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        if (mCursor != null) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
