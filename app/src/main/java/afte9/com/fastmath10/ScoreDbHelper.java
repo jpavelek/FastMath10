@@ -18,7 +18,7 @@ public class ScoreDbHelper extends SQLiteOpenHelper {
 
     private static final String SQL_CREATE_ENTRIES = "CREATE TABLE " + TABLE_NAME + " (" +
             COLUMN_ID + " INTEGER PRIMARY KEY," +
-            COLUMN_NAME_NAME + " TEXT" +
+            COLUMN_NAME_NAME + " TEXT," +
             COLUMN_NAME_SCORE + " INTEGER," +
             COLUMN_NAME_LEVEL + " INTEGER)";
 
@@ -28,18 +28,15 @@ public class ScoreDbHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_ENTRIES);
     }
 
-    @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(SQL_DELETE_ENTRIES);
         onCreate(db);
     }
 
-    @Override
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);
     }
@@ -47,9 +44,9 @@ public class ScoreDbHelper extends SQLiteOpenHelper {
     public boolean checkDb(SQLiteDatabase db) {
         Cursor mCursor = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
         if (mCursor != null) {
-            return true;
+            return true; //We have database
         } else {
-            return false;
+            return false; //nothing
         }
     }
 }

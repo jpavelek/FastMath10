@@ -13,5 +13,5 @@
     <string name="button_cancel">Cancel</string>
     <string name="button_save">Save</string>
     <string name="end_game_summary_default">You scored 333 points at level 2\n\nYou achieved rank #11</string>
-    <string name="end_game_summary_format" formatted="false">You scored %d points at level %02d\n\nYou achieved rank #%d</string>
+    <string name="end_game_summary_format" formatted="false">You scored %d points at level %02d.</string>
 </resources>

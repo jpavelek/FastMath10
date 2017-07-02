@@ -103,10 +103,11 @@ public class GameScreen extends AppCompatActivity {
                 newMove();
             } else {
                 //We did not make the level, game ends. Log your name for the score and go back to main
+
+                //Back to Home
                 Intent intent = new Intent(this, EndGameScreen.class);
                 intent.putExtra("score", total_score);
                 intent.putExtra("level", task_provider.getTaskLevel());
-                intent.putExtra("rank", 11); //TODO - fix this and provide real rank for this score!!!
                 startActivity(intent);
             }
         } else {

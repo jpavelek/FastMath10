@@ -1,5 +1,6 @@
 package afte9.com.fastmath10;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     private ScoreDbHelper mDbHelper;
@@ -18,33 +20,38 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mDbHelper = new ScoreDbHelper(this);
+        mDbHelper = new ScoreDbHelper(getApplicationContext());
 
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
-        if (mDbHelper.checkDb(db)) {
-            String[] projection = {
-                    ScoreDbHelper.COLUMN_ID,
-                    ScoreDbHelper.COLUMN_NAME_NAME,
-                    ScoreDbHelper.COLUMN_NAME_SCORE,
-                    ScoreDbHelper.COLUMN_NAME_LEVEL
-            };
-            String sortOrder = ScoreDbHelper.COLUMN_NAME_SCORE + " DESC";
-            Cursor cursor = db.query(
-                    ScoreDbHelper.TABLE_NAME,
-                    null, //WHERE
-                    null, //WHERE values
-                    projection,
-                    null, //don't group rows
-                    null, //don't filter rows
-                    sortOrder
-            );
-            while (cursor.moveToNext()) {
-                String name = cursor.getString(cursor.getColumnIndexOrThrow(ScoreDbHelper.COLUMN_NAME_NAME));
-                int score = cursor.getInt(cursor.getColumnIndexOrThrow(ScoreDbHelper.COLUMN_NAME_SCORE));
-                int level = cursor.getInt(cursor.getColumnIndexOrThrow(ScoreDbHelper.COLUMN_NAME_LEVEL));
-                System.out.println("Got name:" + name + " with score " + score + "at level " + level);
-            }
+
+        String[] projection = {
+                ScoreDbHelper.COLUMN_NAME_NAME,
+                ScoreDbHelper.COLUMN_NAME_SCORE,
+                ScoreDbHelper.COLUMN_NAME_LEVEL
+        };
+        String sortOrder = ScoreDbHelper.COLUMN_NAME_SCORE + " DESC";
+        Cursor cursor = db.query(
+                ScoreDbHelper.TABLE_NAME,
+                projection,
+                null, //WHERE
+                null, //WHERE values
+                null, //don't group rows
+                null, //don't filter rows
+                sortOrder
+        );
+        String tableString = "Score\t\tLevel\t\tName\n";
+        boolean gotScores = false;
+        while (cursor.moveToNext()) {
+            gotScores = true;
+            String name = cursor.getString(cursor.getColumnIndexOrThrow(ScoreDbHelper.COLUMN_NAME_NAME));
+            int score = cursor.getInt(cursor.getColumnIndexOrThrow(ScoreDbHelper.COLUMN_NAME_SCORE));
+            int level = cursor.getInt(cursor.getColumnIndexOrThrow(ScoreDbHelper.COLUMN_NAME_LEVEL));
+            tableString = tableString.concat(String.format("%d\t\t%02d\t\t%s\n", score, level, name));
         }
+        if (gotScores) {
+            ((TextView) findViewById(R.id.textViewScores)).setText(tableString);
+        }
+        cursor.close();
 
     }
 
@@ -60,8 +67,10 @@ public class MainActivity extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.action_reset_scores:
-                //TODO - reset scores
-                System.out.println("Reset scores ... not implemented");
+                mDbHelper = new ScoreDbHelper(getApplicationContext());
+                SQLiteDatabase db = mDbHelper.getReadableDatabase();
+                db.delete(ScoreDbHelper.TABLE_NAME, null, null);
+                ((TextView) findViewById(R.id.textViewScores)).setText(getText(R.string.no_scores));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
