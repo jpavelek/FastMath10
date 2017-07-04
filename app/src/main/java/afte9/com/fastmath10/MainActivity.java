@@ -20,6 +20,38 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        populateUi();
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main_screen, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_reset_scores:
+                resetScores();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    //Reset scores database
+    private void resetScores() {
+        mDbHelper = new ScoreDbHelper(getApplicationContext());
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        db.delete(ScoreDbHelper.TABLE_NAME, null, null);
+        ((TextView) findViewById(R.id.textViewScores)).setText(getText(R.string.no_scores));
+    }
+
+    //Populate the main screen UI
+    private void populateUi() {
         mDbHelper = new ScoreDbHelper(getApplicationContext());
 
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
@@ -39,42 +71,19 @@ public class MainActivity extends AppCompatActivity {
                 null, //don't filter rows
                 sortOrder
         );
-        String tableString = "Score\t\tLevel\t\tName\n";
+        String tableString = getString(R.string.table_title_format);
         boolean gotScores = false;
         while (cursor.moveToNext()) {
             gotScores = true;
             String name = cursor.getString(cursor.getColumnIndexOrThrow(ScoreDbHelper.COLUMN_NAME_NAME));
             int score = cursor.getInt(cursor.getColumnIndexOrThrow(ScoreDbHelper.COLUMN_NAME_SCORE));
             int level = cursor.getInt(cursor.getColumnIndexOrThrow(ScoreDbHelper.COLUMN_NAME_LEVEL));
-            tableString = tableString.concat(String.format("%d\t\t%02d\t\t%s\n", score, level, name));
+            tableString = tableString.concat(String.format(getString(R.string.table_row_format), score, level, name));
         }
         if (gotScores) {
             ((TextView) findViewById(R.id.textViewScores)).setText(tableString);
         }
         cursor.close();
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main_screen, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.action_reset_scores:
-                mDbHelper = new ScoreDbHelper(getApplicationContext());
-                SQLiteDatabase db = mDbHelper.getReadableDatabase();
-                db.delete(ScoreDbHelper.TABLE_NAME, null, null);
-                ((TextView) findViewById(R.id.textViewScores)).setText(getText(R.string.no_scores));
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     public void launchGame(View view) {

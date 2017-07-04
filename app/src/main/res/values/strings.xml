@@ -15,4 +15,6 @@
     <string name="end_game_summary_default">You scored 333 points at level 2\n\nYou achieved rank #11</string>
     <string name="end_game_summary_format" formatted="false">You scored %d points at level %02d.</string>
     <string name="button_continue">Continue</string>
+    <string name="table_title_format">Score\t\tLevel\t\tName\n</string>
+    <string name="table_row_format" formatted="false">%d\t\t%02d\t\t%s\n</string>
 </resources>
