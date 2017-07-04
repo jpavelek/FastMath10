@@ -74,63 +74,76 @@ public class GameScreen extends AppCompatActivity {
         updateScore(false);
         task_provider.getNextTask();
         if (level_move >= TaskProvider.ROUNDS) {
-            //This was last move available at this level, sum up and see how we did
+            //This was last move available at this level
             if (level_score > task_provider.getLevelScoreTarget()) {
-
-                AlertDialog.Builder builder;
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
-                } else {
-                    builder = new AlertDialog.Builder(this);
-                }
-
-                builder.setTitle(getString(R.string.dialog_title))
-                        .setMessage(String.format(getString(R.string.dialog_message_format), level_score, total_score))
-                        .setPositiveButton(getString(R.string.button_continue), new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                updateLevelColors();
-                                task_provider.increaseLevel();
-                                ((TextView) findViewById(R.id.textView_level)).setText(String.format(getString(R.string.level_progress),task_provider.getTaskLevel()));
-                                level_move = 1;
-                                level_score = 0;
-                                newMove();
-                            }
-                        })
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
+                //Passed the level, moving up
+                upLevel();
             } else {
-                //We did not make the level, game ends. Log your name for the score and go back to main
-                Intent intent = new Intent(this, EndGameScreen.class);
-                intent.putExtra(ScoreDbHelper.COLUMN_NAME_SCORE, total_score);
-                intent.putExtra(ScoreDbHelper.COLUMN_NAME_LEVEL, task_provider.getTaskLevel());
-                startActivity(intent);
+                //That was not enough to pass the level, game ends
+                showEndgameScreen();
             }
         } else {
-            //Start new move
-            ((Button) findViewById(R.id.buttonChoiceOne)).setText(String.valueOf(task_provider.getResultChoices()[0]));
-            ((Button) findViewById(R.id.buttonChoiceTwo)).setText(String.valueOf(task_provider.getResultChoices()[1]));
-            ((Button) findViewById(R.id.buttonChoiceThree)).setText(String.valueOf(task_provider.getResultChoices()[2]));
-            ((ProgressBar) findViewById(R.id.progressBar_time)).setMax(task_provider.getTimeout()/1000);
-            ((ProgressBar) findViewById(R.id.progressBar_time)).setProgress(task_provider.getTimeout()/1000);
-            ((TextView) findViewById(R.id.textView_test)).setText(task_provider.getTaskVisual());
-
-            timer = new CountDownTimer(task_provider.getTimeout(), 1000) {
-                @Override
-                public void onTick(long millisUntilFinished) {
-                    ((ProgressBar) findViewById(R.id.progressBar_time)).setProgress((int)millisUntilFinished / 1000 );
-                    remaining_millis = (int) millisUntilFinished;
-                }
-
-                @Override
-                public void onFinish() {
-                    // We ran out of time, move over
-                    ((ProgressBar) findViewById(R.id.progressBar_time)).setProgress(0);
-                    level_move++;
-                    newMove();
-                }
-            }.start();
+            //Still have moves left on this level, start new test
+            prepNewMove();
         }
+    }
+
+    private void upLevel() {
+        AlertDialog.Builder builder;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(this);
+        }
+
+        builder.setTitle(getString(R.string.dialog_title))
+                .setMessage(String.format(getString(R.string.dialog_message_format), level_score, total_score))
+                .setPositiveButton(getString(R.string.button_continue), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        updateLevelColors();
+                        task_provider.increaseLevel();
+                        ((TextView) findViewById(R.id.textView_level)).setText(String.format(getString(R.string.level_progress),task_provider.getTaskLevel()));
+                        level_move = 1;
+                        level_score = 0;
+                        newMove();
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
+
+    private void showEndgameScreen () {
+        //We did not make the level, game ends. Log your name for the score and go back to main
+        Intent intent = new Intent(this, EndGameScreen.class);
+        intent.putExtra(ScoreDbHelper.COLUMN_NAME_SCORE, total_score);
+        intent.putExtra(ScoreDbHelper.COLUMN_NAME_LEVEL, task_provider.getTaskLevel());
+        startActivity(intent);
+    }
+
+    private void prepNewMove() {
+        ((Button) findViewById(R.id.buttonChoiceOne)).setText(String.valueOf(task_provider.getResultChoices()[0]));
+        ((Button) findViewById(R.id.buttonChoiceTwo)).setText(String.valueOf(task_provider.getResultChoices()[1]));
+        ((Button) findViewById(R.id.buttonChoiceThree)).setText(String.valueOf(task_provider.getResultChoices()[2]));
+        ((ProgressBar) findViewById(R.id.progressBar_time)).setMax(task_provider.getTimeout()/1000);
+        ((ProgressBar) findViewById(R.id.progressBar_time)).setProgress(task_provider.getTimeout()/1000);
+        ((TextView) findViewById(R.id.textView_test)).setText(task_provider.getTaskVisual());
+
+        timer = new CountDownTimer(task_provider.getTimeout(), 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                ((ProgressBar) findViewById(R.id.progressBar_time)).setProgress((int)millisUntilFinished / 1000 );
+                remaining_millis = (int) millisUntilFinished;
+            }
+
+            @Override
+            public void onFinish() {
+                // We ran out of time, move over
+                ((ProgressBar) findViewById(R.id.progressBar_time)).setProgress(0);
+                level_move++;
+                newMove();
+            }
+        }.start();
     }
 
     private void updateScore(boolean hit) {
