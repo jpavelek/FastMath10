@@ -44,31 +44,10 @@ public class GameScreen extends AppCompatActivity {
         newMove();
     }
 
-    public void firstChoiceMade(View view) {
+    public void choiceButtonsClicked(View view) {
+        //One of the three choice buttons were clicked. Check if that was the right one and respond
         level_move++;
-        if (task_provider.getResultChoices()[3] == 1) {
-            updateScore(true);
-        } else {
-            blinkScreen();
-        }
-        timer.cancel();
-        newMove();
-    }
-
-    public void secondChoiceMade(View view) {
-        level_move++;
-        if (task_provider.getResultChoices()[3] == 2) {
-            updateScore(true);
-        } else {
-            blinkScreen();
-        }
-        timer.cancel();
-        newMove();
-    }
-
-    public void thirdChoiceMade(View view) {
-        level_move++;
-        if (task_provider.getResultChoices()[3] == 3) {
+        if ((Integer.parseInt(((Button) view).getText().toString())) == task_provider.getTaskResult()) {
             updateScore(true);
         } else {
             blinkScreen();
