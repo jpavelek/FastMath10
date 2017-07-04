@@ -1,15 +1,12 @@
-package afte9.com.fastmath10;
+package com.afte9.fastmath10;
 
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-
-import afte9.com.fastmath10.R;
 
 public class EndGameScreen extends AppCompatActivity {
     private ScoreDbHelper mDbHelper;

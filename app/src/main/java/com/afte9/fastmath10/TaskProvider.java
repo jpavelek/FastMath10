@@ -1,4 +1,5 @@
-package afte9.com.fastmath10;
+package com.afte9.fastmath10;
+
 
 
 import java.util.Random;
@@ -100,7 +101,7 @@ public final class TaskProvider {
                 task_level = task_level.getNext();
                 break;
             case SEVEN:
-                //Just increase speed and go back to ONE
+                //Increase speed and go back to ONE
                 task_level = TaskLevels.ONE;
                 speed_level = speed_level.getNext();
                 break;

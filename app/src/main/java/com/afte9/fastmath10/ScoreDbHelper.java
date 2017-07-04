@@ -1,4 +1,4 @@
-package afte9.com.fastmath10;
+package com.afte9.fastmath10;
 
 
 import android.content.Context;

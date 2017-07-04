@@ -1,6 +1,5 @@
-package afte9.com.fastmath10;
+package com.afte9.fastmath10;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+
 
 public class MainActivity extends AppCompatActivity {
     private ScoreDbHelper mDbHelper;

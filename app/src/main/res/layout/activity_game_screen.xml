@@ -5,7 +5,8 @@
     android:id="@+id/layout_top"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="afte9.com.fastmath10.GameScreen">
+    tools:context="com.afte9.fastmath10.GameScreen">
+
 
     <TextView
         android:id="@+id/textView_Score"

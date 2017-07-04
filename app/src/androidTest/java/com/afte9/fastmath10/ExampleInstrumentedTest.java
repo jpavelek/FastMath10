@@ -1,4 +1,4 @@
-package afte9.com.fastmath10;
+package com.afte9.fastmath10;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("afte9.com.com.afte9.fastmath10", appContext.getPackageName());
+        assertEquals("com.afte9.fastmath10", appContext.getPackageName());
     }
 }
