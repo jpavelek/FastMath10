@@ -106,9 +106,9 @@ public class GameScreen extends AppCompatActivity {
                     builder = new AlertDialog.Builder(this);
                 }
 
-                builder.setTitle("Level finished")
-                        .setMessage(String.format("You scored %d points.\nTotal %d points.", level_score, total_score))
-                        .setPositiveButton(R.string.button_continue, new DialogInterface.OnClickListener() {
+                builder.setTitle(getString(R.string.dialog_title))
+                        .setMessage(String.format(getString(R.string.dialog_message_format), level_score, total_score))
+                        .setPositiveButton(getString(R.string.button_continue), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 updateLevelColors();
                                 task_provider.increaseLevel();
@@ -123,8 +123,8 @@ public class GameScreen extends AppCompatActivity {
             } else {
                 //We did not make the level, game ends. Log your name for the score and go back to main
                 Intent intent = new Intent(this, EndGameScreen.class);
-                intent.putExtra("score", total_score);
-                intent.putExtra("level", task_provider.getTaskLevel());
+                intent.putExtra(ScoreDbHelper.COLUMN_NAME_SCORE, total_score);
+                intent.putExtra(ScoreDbHelper.COLUMN_NAME_LEVEL, task_provider.getTaskLevel());
                 startActivity(intent);
             }
         } else {
