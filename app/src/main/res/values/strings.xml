@@ -1,0 +1,31 @@
+<resources>
+    <string name="start_challenge">Start challenge</string>
+    <string name="app_name">Fast Math 10</string>
+    <string name="action_reset_scores">Reset scores</string>
+    <string name="no_scores">No scores ... yet</string>
+    <string name="default_empty_score">Score:</string>
+    <string name="score_formatted">Score :%4d</string>
+    <string name="default_empty_test">1 + 4 =</string>
+    <string name="default_empty_answer">5</string>
+    <string name="level_progress">Level :%2d</string>
+    <string name="level_progress_default">Level: 0</string>
+    <string name="end_game_message">Would you like to save your name for the score?</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="button_save">Save</string>
+    <string name="end_game_summary_default">You scored 333 points at level 2\n\nYou achieved rank #11</string>
+    <string name="end_game_summary_format" formatted="false">You scored %d points at level %02d.</string>
+    <string name="button_continue">Continue</string>
+    <string name="table_title_format">Score\t\tLevel\t\tName\n</string>
+    <string name="table_row_format" formatted="false">%d\t\t%02d\t\t%s\n</string>
+    <string name="dialog_title">Level finished</string>
+    <string name="dialog_message_format" formatted="false">You scored %d points.\nTotal %d points.</string>
+    <string name="level_01">Small number additions</string>
+    <string name="level_02">Small number substractions</string>
+    <string name="level_03">Additions with result bigger than 10</string>
+    <string name="level_04">Subtracting from number bigger than 10</string>
+    <string name="level_05">Bigger number additions</string>
+    <string name="level_06">Adding three small numbers</string>
+    <string name="level_07">Mixing three number additions and subsctactions</string>
+    <string name="level_08">Small multiplications</string>
+    <string name="level_09">Simplest divisions</string>
+</resources>
