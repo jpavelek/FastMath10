@@ -36,7 +36,7 @@ public class GameScreen extends AppCompatActivity {
         level_move = 1;
         task_provider.reset();
         dimLevelColors();
-        //TODO - set the level in the title instead
+        //TODO - set the level in the title instead.
         // ((TextView) findViewById(R.id.textView_level)).setText(String.format(getString(R.string.level_progress),task_provider.getTaskLevel()));
         newMove();
     }

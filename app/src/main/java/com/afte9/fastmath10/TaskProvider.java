@@ -102,6 +102,7 @@ public final class TaskProvider {
                 break;
             case SEVEN:
                 //Increase speed and go back to ONE
+                //FIXME - should go to NINE
                 task_level = TaskLevels.ONE;
                 speed_level = speed_level.getNext();
                 break;
