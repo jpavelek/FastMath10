@@ -8,9 +8,9 @@ public final class TaskProvider {
     private static final TaskProvider ourInstance = new TaskProvider();
     private static final int TARGET = 7; //Six out of 10 is target
     public static final int ROUNDS = 10; //Ten tasks per round/level
+    public static final int TIMEOUT = 20000; //milliseconds
 
     private TaskLevels task_level;
-    private SpeedLevels speed_level;
     private int task_result;
     private int[] task_choices;
     private String task_visual;
@@ -19,28 +19,15 @@ public final class TaskProvider {
     private int task_level_ordinal;
     private Random r;
 
-    public enum TaskLevels { ONE(100), TWO(200), THREE(300), FOUR(400), FIVE(500), SIX(1000), SEVEN(1500);
+    public enum TaskLevels { ONE(100), TWO(200), THREE(300), FOUR(400), FIVE(500), SIX(1000), SEVEN(1500), EIGHT(1500), NINE(1500);
         private int retval;
         TaskLevels (int newVal) { this.retval = newVal; }
         public TaskLevels getNext() {
-            if (this == SEVEN) return SEVEN;
+            if (this == NINE) return NINE;
             else return TaskLevels.values()[this.ordinal() +1];
         }
         public int getNumVal()  {
             return retval;
-        }
-    }
-    public enum SpeedLevels { SLOW(20000), NORMAL(10000), FAST(5000);
-        private int retval;
-        SpeedLevels(int newVal) {
-            this.retval = newVal;
-        }
-        public int getNumVal() {
-            return retval;
-        }
-        public SpeedLevels getNext() {
-            if (this == FAST) return FAST;
-            else return SpeedLevels.values()[this.ordinal() + 1];
         }
     }
 
@@ -58,13 +45,12 @@ public final class TaskProvider {
         //Init to initial speed and task levels
         task_level_ordinal = 1;
         task_level = TaskLevels.ONE;
-        speed_level = SpeedLevels.SLOW;
         level_increment = TaskLevels.ONE.getNumVal();
         level_target = TARGET*level_increment;
         getNextTask(); // to make sure this is not empty
     }
 
-    public int increaseLevel() {
+    public void increaseLevel() {
         // Returns new timeout in milliseconds
         // Increases level targets and rewards.
 
@@ -101,16 +87,22 @@ public final class TaskProvider {
                 task_level = task_level.getNext();
                 break;
             case SEVEN:
-                //Increase speed and go back to ONE
-                //FIXME - should go to NINE
-                task_level = TaskLevels.ONE;
-                speed_level = speed_level.getNext();
+                level_increment = level_increment + TaskLevels.SEVEN.getNumVal();
+                level_target = TARGET*level_increment;
+                task_level = task_level.getNext();
+                break;
+            case EIGHT:
+                level_increment = level_increment + TaskLevels.EIGHT.getNumVal();
+                level_target = TARGET*level_increment;
+                task_level = task_level.getNext();
+                break;
+            case NINE:
+                System.out.println("ERR: We should not be here going over NINE");
                 break;
             default:
                 System.out.println("WARN: Unrecognized task level");
                 break;
         }
-        return speed_level.getNumVal();
     }
 
     private int randS() {
@@ -208,6 +200,12 @@ public final class TaskProvider {
                 task_choices[3] = 3;
                 task_visual = String.format("%d + %d - %d =", a, b, c);
                 break;
+            case EIGHT:
+                //TODO Implement EIGHT tasks
+                break;
+            case NINE:
+                //TODO Implement NINE tasks
+                break;
             default:
                 break;
         }
@@ -239,8 +237,8 @@ public final class TaskProvider {
     }
 
     public int getTimeout() {
-        return speed_level.getNumVal();
-    }
+        return TIMEOUT;
+    } //Ugly
 
     public int getTaskLevel() { return task_level_ordinal; }
 }
