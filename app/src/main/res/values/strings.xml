@@ -7,7 +7,7 @@
     <string name="score_formatted">Score :%4d</string>
     <string name="default_empty_test">1 + 4 =</string>
     <string name="default_empty_answer">5</string>
-    <string name="level_progress">Level :%2d</string>
+    <string name="level_title_progress_format" formatted="false">%s - Level: %d</string>
     <string name="level_progress_default">Level: 0</string>
     <string name="end_game_message">Would you like to save your name for the score?</string>
     <string name="button_cancel">Cancel</string>

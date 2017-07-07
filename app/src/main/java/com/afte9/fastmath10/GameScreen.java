@@ -36,8 +36,8 @@ public class GameScreen extends AppCompatActivity {
         level_move = 1;
         task_provider.reset();
         dimLevelColors();
-        //TODO - set the level in the title instead.
-        // ((TextView) findViewById(R.id.textView_level)).setText(String.format(getString(R.string.level_progress),task_provider.getTaskLevel()));
+        String newTitle = String.format(getString(R.string.level_title_progress_format), getString(R.string.app_name), task_provider.getTaskLevel());
+        getSupportActionBar().setTitle(newTitle);
         newMove();
     }
 
@@ -100,8 +100,8 @@ public class GameScreen extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         updateLevelColors();
                         task_provider.increaseLevel();
-                        //TODO - fix this and set the level inthe title instead
-                        // ((TextView) findViewById(R.id.textView_level)).setText(String.format(getString(R.string.level_progress),task_provider.getTaskLevel()));
+                        String newTitle = String.format(getString(R.string.level_title_progress_format), getString(R.string.app_name), task_provider.getTaskLevel());
+                        getSupportActionBar().setTitle(newTitle);
                         level_move = 1;
                         level_score = 0;
                         newMove();
