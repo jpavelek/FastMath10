@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                 null, //don't filter rows
                 sortOrder
         );
-        String tableString = getString(R.string.table_title_format);
+        String tableString = new String();
         boolean gotScores = false;
         while (cursor.moveToNext()) {
             gotScores = true;
