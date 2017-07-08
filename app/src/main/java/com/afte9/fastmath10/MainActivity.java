@@ -71,17 +71,12 @@ public class MainActivity extends AppCompatActivity {
                 null, //don't filter rows
                 sortOrder
         );
-        String tableString = new String();
-        boolean gotScores = false;
+
         while (cursor.moveToNext()) {
-            gotScores = true;
             String name = cursor.getString(cursor.getColumnIndexOrThrow(ScoreDbHelper.COLUMN_NAME_NAME));
             int score = cursor.getInt(cursor.getColumnIndexOrThrow(ScoreDbHelper.COLUMN_NAME_SCORE));
             int level = cursor.getInt(cursor.getColumnIndexOrThrow(ScoreDbHelper.COLUMN_NAME_LEVEL));
-            tableString = tableString.concat(String.format(getString(R.string.table_row_format), score, level, name));
-        }
-        if (gotScores) {
-            ((TextView) findViewById(R.id.textViewScores)).setText(tableString);
+            //TODO - make list item and add to model
         }
         cursor.close();
     }
