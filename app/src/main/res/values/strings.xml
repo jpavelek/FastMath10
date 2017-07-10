@@ -18,6 +18,7 @@
     <string name="table_title_format">Score\t\tLevel\t\tName\n</string>
     <string name="table_row_format" formatted="false">%d\t\t%02d\t\t%s\n</string>
     <string name="dialog_title">Level finished.</string>
+    <string name="dialog_gameover_title">Game finished!</string>
     <string name="dialog_message_format" formatted="false">You scored %d points.\nTotal %d points.</string>
     <string name="level_01">Small number additions</string>
     <string name="level_02">Small number substractions</string>

@@ -37,7 +37,7 @@
             android:textColor="@android:color/black"
             android:textSize="24sp"
             android:textStyle="bold"
-            tools:text="02" />
+            tools:text="2" />
 
     </FrameLayout>
 

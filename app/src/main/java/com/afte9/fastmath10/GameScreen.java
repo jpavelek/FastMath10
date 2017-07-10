@@ -92,21 +92,35 @@ public class GameScreen extends AppCompatActivity {
             builder = new AlertDialog.Builder(this);
         }
 
-        builder.setTitle(getString(R.string.dialog_title))
-                .setMessage(String.format(getString(R.string.dialog_message_format), level_score, total_score))
-                .setPositiveButton(getString(R.string.button_continue), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        updateLevelColors();
-                        task_provider.increaseLevel();
-                        String newTitle = String.format(getString(R.string.level_title_progress_format), getString(R.string.app_name), task_provider.getTaskLevel());
-                        getSupportActionBar().setTitle(newTitle);
-                        level_move = 1;
-                        level_score = 0;
-                        newMove();
-                    }
-                })
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
+        if (task_provider.getTaskLevel() == (TaskProvider.TaskLevels.NINE.ordinal() + 1)) {
+            //We are already at the last level, end the game
+            builder.setTitle(getString(R.string.dialog_gameover_title))
+                    .setMessage(String.format(getString(R.string.dialog_message_format), level_score, total_score))
+                    .setPositiveButton(getString(R.string.button_continue), new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            showEndgameScreen();
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+        } else {
+            //Still levels to go, show resume and go to next level
+            builder.setTitle(getString(R.string.dialog_title))
+                    .setMessage(String.format(getString(R.string.dialog_message_format), level_score, total_score))
+                    .setPositiveButton(getString(R.string.button_continue), new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            updateLevelColors();
+                            task_provider.increaseLevel();
+                            String newTitle = String.format(getString(R.string.level_title_progress_format), getString(R.string.app_name), task_provider.getTaskLevel());
+                            getSupportActionBar().setTitle(newTitle);
+                            level_move = 1;
+                            level_score = 0;
+                            newMove();
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+        }
     }
 
     private void showEndgameScreen () {
@@ -197,13 +211,4 @@ public class GameScreen extends AppCompatActivity {
                 break;
         }
     }
-
-
-    //If Back arrow clicked, go back
-    public boolean onOptionsItemSelected(MenuItem item) {
-        finish();
-        return true;
-    }
-
-
 }
