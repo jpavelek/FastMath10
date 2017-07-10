@@ -49,6 +49,8 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="32dp"
         android:ems="10"
+        android:hint="@string/you_name_query"
+        android:nextFocusDown="@+id/button_save"
         android:inputType="textPersonName"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"

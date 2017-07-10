@@ -28,4 +28,5 @@
     <string name="level_07">Mixing three number additions and subsctactions</string>
     <string name="level_08">Small multiplications</string>
     <string name="level_09">Simplest divisions</string>
+    <string name="you_name_query">Your name?</string>
 </resources>

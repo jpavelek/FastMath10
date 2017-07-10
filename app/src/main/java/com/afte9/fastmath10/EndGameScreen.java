@@ -26,7 +26,6 @@ public class EndGameScreen extends AppCompatActivity {
     }
 
     public void saveClicked (View view) {
-        //TODO - database call to save the name, score and achieved level
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         String name = ((TextView)findViewById(R.id.editText_name)).getText().toString();
