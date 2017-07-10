@@ -12,6 +12,7 @@ public final class TaskProvider {
 
     private TaskLevels task_level;
     private int task_result;
+    private int previous_task_result;
     private int[] task_choices;
     private String task_visual;
     private int level_target;
@@ -114,9 +115,9 @@ public final class TaskProvider {
         switch (task_level) {
             case ONE:
                 a = randS()+1;
-                while (a>9) a = randS()+1;
+                while (a>7) a = randS()+1;
                 b = randS()+1;
-                while (a+b>10) b = randS()+1;
+                while ((a+b>10) || (a+b == previous_task_result)) b = randS()+1;
                 task_result = a + b;
                 task_choices[0] = task_result - (r.nextInt(3)+1);
                 task_choices[1] = task_result + (r.nextInt(3)+1);
@@ -128,7 +129,7 @@ public final class TaskProvider {
                 a = randS()+3;
                 while (a>9) a = randS()+3;
                 b = randS();
-                while ((b == 0) || (b>a)) b = randS();
+                while ((b == 0) || (b>a) || (a-b == previous_task_result)) b = randS();
                 task_result = a - b;
                 task_choices[0] = task_result - (r.nextInt(3)+1);
                 task_choices[1] = task_result + (r.nextInt(3)+1);
@@ -137,10 +138,10 @@ public final class TaskProvider {
                 task_visual = String.format("%d - %d =", a, b);
                 break;
             case THREE:
-                a = randS()+1;
-                while (a>9) a = randS()+1;
-                b = randS()+2;
-                while (a + b < 11) b = randS()+2;
+                a = randS()+3;
+                while (a>9) a = randS()+3;
+                b = randS()+1;
+                while ((a + b < 11) || (a+b == previous_task_result) || (b>9)) b = randS()+1;
                 task_result = a + b;
                 task_choices[0] = task_result - (r.nextInt(3)+1);
                 task_choices[1] = task_result + (r.nextInt(3)+1);
@@ -152,7 +153,7 @@ public final class TaskProvider {
                 a = randS()+11;
                 while (a>19) a = randS()+11;
                 b = randS();
-                while (b == 0) b = randS();
+                while ((b == 0) || (a-b == previous_task_result)) b = randS();
                 task_result = a - b;
                 task_choices[0] = task_result - (r.nextInt(3)+1);
                 task_choices[1] = task_result + (r.nextInt(3)+1);
@@ -164,7 +165,7 @@ public final class TaskProvider {
                 a = randS()+1;
                 while (a>9) a = randS()+1;
                 b = randS()+11;
-                while (a+b>19) b = randS()+11;
+                while ((a+b>19) || (a+b == previous_task_result)) b = randS()+11;
                 task_result = a + b;
                 task_choices[0] = task_result - (r.nextInt(3)+1);
                 task_choices[1] = task_result + (r.nextInt(3)+1);
@@ -178,7 +179,7 @@ public final class TaskProvider {
                 b = randS()+1;
                 while (b>8) b = randS()+1;
                 c = randS()+1;
-                while (a+b+c > 19) c = randS()+1;
+                while ((a+b+c > 19) || (a+b+c == previous_task_result)) c = randS()+1;
                 task_result = a + b + c;
                 task_choices[0] = task_result - (r.nextInt(3)+1);
                 task_choices[1] = task_result + (r.nextInt(3)+1);
@@ -192,7 +193,7 @@ public final class TaskProvider {
                 b = randS()+1;
                 while (b>9) b = randS()+1;
                 c = randS()+1;
-                while (a+b-c < 0) c = randS()+1;
+                while ((a+b-c < 0) || (a+b-c == previous_task_result)) c = randS()+1;
                 task_result = a + b - c;
                 task_choices[0] = task_result - (r.nextInt(3)+1);
                 task_choices[1] = task_result + (r.nextInt(3)+1);
@@ -209,6 +210,8 @@ public final class TaskProvider {
             default:
                 break;
         }
+        previous_task_result = task_result; //Save for the next round
+        //Shuffle the position of correct result in between the buttons
         int seed = r.nextInt(3);
         a = task_choices[seed];
         task_choices[seed] = task_choices[2]; //the current correct answer swapped to new random position

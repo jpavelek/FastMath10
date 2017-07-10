@@ -44,6 +44,7 @@ public class GameScreen extends AppCompatActivity {
         if ((Integer.parseInt(((Button) view).getText().toString())) == task_provider.getTaskResult()) {
             updateScore(true);
         } else {
+            System.out.println("*** Wrong reply to " + task_provider.getTaskVisual() + ". Replied " + (((Button) view).getText().toString()) + " but correct is " + task_provider.getTaskResult());
             blinkScreen();
         }
         timer.cancel();
