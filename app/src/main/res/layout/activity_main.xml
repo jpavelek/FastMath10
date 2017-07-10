@@ -31,7 +31,7 @@
         android:id="@+id/listView_scores"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textViewScores"
+        android:layout_alignParentTop="true"
         android:layout_above="@+id/buttonStartGame"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"

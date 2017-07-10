@@ -11,19 +11,27 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.TextView;
 
 
 public class MainActivity extends AppCompatActivity {
     private ScoreDbHelper mDbHelper;
-    private String[] fromColumns = {ScoreDbHelper.COLUMN_NAME_SCORE, ScoreDbHelper.COLUMN_NAME_LEVEL, ScoreDbHelper.COLUMN_NAME_NAME};
-    private int[] toViews = {R.id.textView_score, R.id.textView_level, R.id.textView_name};
+    private String[] FROM_COLUMNS = {ScoreDbHelper.COLUMN_NAME_SCORE, ScoreDbHelper.COLUMN_NAME_LEVEL, ScoreDbHelper.COLUMN_NAME_NAME};
+    private int[] TO_VIEWS = {R.id.textView_score, R.id.textView_level, R.id.textView_name};
+    private String[] PROJECTION = {
+            ScoreDbHelper.COLUMN_ID,
+            ScoreDbHelper.COLUMN_NAME_NAME,
+            ScoreDbHelper.COLUMN_NAME_SCORE,
+            ScoreDbHelper.COLUMN_NAME_LEVEL
+    };
+    private String SORT_ORDER = ScoreDbHelper.COLUMN_NAME_SCORE + " DESC";
+    private Cursor cursor;
     private SimpleCursorAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mDbHelper = new ScoreDbHelper(getApplicationContext());
 
         populateUi();
 
@@ -49,40 +57,37 @@ public class MainActivity extends AppCompatActivity {
 
     //Reset scores database
     private void resetScores() {
-        mDbHelper = new ScoreDbHelper(getApplicationContext());
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
         db.delete(ScoreDbHelper.TABLE_NAME, null, null);
-        ((TextView) findViewById(R.id.textViewScores)).setText(getText(R.string.no_scores));
+        updateCursor();
+        adapter.changeCursor(cursor);
+        adapter.notifyDataSetChanged(); //This should update the ListView with new database
     }
 
-    //Populate the main screen UI
-    private void populateUi() {
-        mDbHelper = new ScoreDbHelper(getApplicationContext());
-
+    //Populate the cursor with latest data
+    private void updateCursor() {
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
-        String[] projection = {
-                ScoreDbHelper.COLUMN_ID,
-                ScoreDbHelper.COLUMN_NAME_NAME,
-                ScoreDbHelper.COLUMN_NAME_SCORE,
-                ScoreDbHelper.COLUMN_NAME_LEVEL
-        };
-        String sortOrder = ScoreDbHelper.COLUMN_NAME_SCORE + " DESC";
-        Cursor cursor = db.query(
+        if (cursor != null) cursor.close();
+
+        cursor = db.query(
                 ScoreDbHelper.TABLE_NAME,
-                projection,
+                PROJECTION,
                 null, //WHERE
                 null, //WHERE values
                 null, //don't group rows
                 null, //don't filter rows
-                sortOrder
+                SORT_ORDER
         );
+    }
+    //Populate the main screen UI
+    private void populateUi() {
+        updateCursor();
 
-        adapter = new SimpleCursorAdapter(this, R.layout.scores_list_layout, cursor,fromColumns , toViews, 0);
+        adapter = new SimpleCursorAdapter(this, R.layout.scores_list_layout, cursor, FROM_COLUMNS , TO_VIEWS, 0);
         ListView listView = (ListView)findViewById(R.id.listView_scores);
+        listView.setEmptyView(findViewById(R.id.textViewScores));
         listView.setAdapter(adapter);
-
-        //FIXME - I should close the cursor, but that crashes the app //cursor.close();
     }
 
     public void launchGame(View view) {
