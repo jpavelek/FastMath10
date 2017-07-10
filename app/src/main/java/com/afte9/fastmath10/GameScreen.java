@@ -27,9 +27,6 @@ public class GameScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_screen);
 
-        //Enable "Back" arrow
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         //Reset game from start
         total_score = 0;
         level_score = 0;
