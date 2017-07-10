@@ -3,17 +3,22 @@ package com.afte9.fastmath10;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 
 
 public class MainActivity extends AppCompatActivity {
     private ScoreDbHelper mDbHelper;
+    private String[] fromColumns = {ScoreDbHelper.COLUMN_NAME_SCORE, ScoreDbHelper.COLUMN_NAME_LEVEL, ScoreDbHelper.COLUMN_NAME_NAME};
+    private int[] toViews = {R.id.textView_score, R.id.textView_level, R.id.textView_name};
+    private SimpleCursorAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
         String[] projection = {
+                ScoreDbHelper.COLUMN_ID,
                 ScoreDbHelper.COLUMN_NAME_NAME,
                 ScoreDbHelper.COLUMN_NAME_SCORE,
                 ScoreDbHelper.COLUMN_NAME_LEVEL
@@ -72,13 +78,11 @@ public class MainActivity extends AppCompatActivity {
                 sortOrder
         );
 
-        while (cursor.moveToNext()) {
-            String name = cursor.getString(cursor.getColumnIndexOrThrow(ScoreDbHelper.COLUMN_NAME_NAME));
-            int score = cursor.getInt(cursor.getColumnIndexOrThrow(ScoreDbHelper.COLUMN_NAME_SCORE));
-            int level = cursor.getInt(cursor.getColumnIndexOrThrow(ScoreDbHelper.COLUMN_NAME_LEVEL));
-            //TODO - make list item and add to model
-        }
-        cursor.close();
+        adapter = new SimpleCursorAdapter(this, R.layout.scores_list_layout, cursor,fromColumns , toViews, 0);
+        ListView listView = (ListView)findViewById(R.id.listView_scores);
+        listView.setAdapter(adapter);
+
+        //FIXME - I should close the cursor, but that crashes the app //cursor.close();
     }
 
     public void launchGame(View view) {
