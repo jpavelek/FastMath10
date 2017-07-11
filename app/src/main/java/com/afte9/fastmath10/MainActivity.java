@@ -3,6 +3,10 @@ package com.afte9.fastmath10;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Shader;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,10 +35,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         mDbHelper = new ScoreDbHelper(getApplicationContext());
 
         populateUi();
-
     }
 
     @Override
@@ -88,6 +92,11 @@ public class MainActivity extends AppCompatActivity {
         ListView listView = (ListView)findViewById(R.id.listView_scores);
         listView.setEmptyView(findViewById(R.id.textViewScores));
         listView.setAdapter(adapter);
+
+        Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.bg);
+        BitmapDrawable bitmapDrawable = new BitmapDrawable(getResources(),bmp);
+        bitmapDrawable.setTileModeXY(Shader.TileMode.REPEAT, Shader.TileMode.REPEAT);
+        getWindow().getDecorView().setBackground(bitmapDrawable);
     }
 
     public void launchGame(View view) {

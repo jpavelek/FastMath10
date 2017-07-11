@@ -2,6 +2,10 @@ package com.afte9.fastmath10;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Shader;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
@@ -26,6 +30,13 @@ public class GameScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_screen);
+
+
+        //Background
+        Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.bg);
+        BitmapDrawable bitmapDrawable = new BitmapDrawable(getResources(),bmp);
+        bitmapDrawable.setTileModeXY(Shader.TileMode.REPEAT, Shader.TileMode.REPEAT);
+        getWindow().getDecorView().setBackground(bitmapDrawable);
 
         //Reset game from start
         total_score = 0;
