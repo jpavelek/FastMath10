@@ -119,6 +119,7 @@ public final class TaskProvider {
                 while ((a+b>10) || (a+b == previous_task_result)) b = randS()+1;
                 task_result = a + b;
                 task_choices[0] = task_result - (r.nextInt(3)+1);
+                while (task_choices[0] <= 0) task_choices[0] = task_result - (r.nextInt(3)+1);
                 task_choices[1] = task_result + (r.nextInt(3)+1);
                 task_choices[2] = task_result;
                 task_choices[3] = 3;
@@ -128,7 +129,7 @@ public final class TaskProvider {
                 a = randS()+3;
                 while (a>9) a = randS()+3;
                 b = randS();
-                while ((b == 0) || (b>a) || (a-b == previous_task_result)) b = randS();
+                while ((b == 0) || (b == a) || (b>a) || (a-b == previous_task_result)) b = randS();
                 task_result = a - b;
                 task_choices[0] = task_result - (r.nextInt(3)+1);
                 task_choices[1] = task_result + (r.nextInt(3)+1);
@@ -152,7 +153,7 @@ public final class TaskProvider {
                 a = randS()+11;
                 while (a>19) a = randS()+11;
                 b = randS();
-                while ((b == 0) || (a-b == previous_task_result)) b = randS();
+                while ((b == 0) || (a == b) || (a-b == previous_task_result)) b = randS();
                 task_result = a - b;
                 task_choices[0] = task_result - (r.nextInt(3)+1);
                 task_choices[1] = task_result + (r.nextInt(3)+1);
@@ -231,14 +232,12 @@ public final class TaskProvider {
         }
         previous_task_result = task_result; //Save for the next round
         //Shuffle the position of correct result in between the buttons
-        //TODO - re-enable this forproduction code
-        /*
         int seed = r.nextInt(3);
         a = task_choices[seed];
         task_choices[seed] = task_choices[2]; //the current correct answer swapped to new random position
         task_choices[2] = a;
         task_choices[3] = seed+1; //save the new correct position
-        */
+
     }
 
     public String getTaskVisual() {
