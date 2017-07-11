@@ -8,10 +8,11 @@
     android:orientation="horizontal">
 
     <FrameLayout
-        android:layout_width="64dp"
+        android:layout_width="84dp"
         android:layout_height="30dp"
         android:layout_margin="8dp"
         android:background="#00000000">
+
         <TextView
             android:id="@+id/textView_score"
             android:layout_width="wrap_content"
@@ -20,7 +21,7 @@
             android:textColor="@android:color/black"
             android:textSize="24sp"
             android:textStyle="bold"
-            tools:text="1234" />
+            tools:text="123456" />
     </FrameLayout>
 
     <FrameLayout

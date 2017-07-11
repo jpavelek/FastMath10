@@ -40,6 +40,10 @@ public class GameScreen extends AppCompatActivity {
 
     public void choiceButtonsClicked(View view) {
         //One of the three choice buttons were clicked. Check if that was the right one and respond
+        timer.cancel();
+        ((Button)findViewById(R.id.buttonChoiceOne)).setClickable(false);
+        ((Button)findViewById(R.id.buttonChoiceTwo)).setClickable(false);
+        ((Button)findViewById(R.id.buttonChoiceThree)).setClickable(false);
         level_move++;
         if ((Integer.parseInt(((Button) view).getText().toString())) == task_provider.getTaskResult()) {
             updateScore(true);
@@ -47,7 +51,6 @@ public class GameScreen extends AppCompatActivity {
             System.out.println("*** Wrong reply to " + task_provider.getTaskVisual() + ". Replied " + (((Button) view).getText().toString()) + " but correct is " + task_provider.getTaskResult());
             blinkScreen();
         }
-        timer.cancel();
         newMove();
     }
 
@@ -81,6 +84,9 @@ public class GameScreen extends AppCompatActivity {
             //Still have moves left on this level, start new test
             prepNewMove();
         }
+        ((Button)findViewById(R.id.buttonChoiceOne)).setClickable(true);
+        ((Button)findViewById(R.id.buttonChoiceTwo)).setClickable(true);
+        ((Button)findViewById(R.id.buttonChoiceThree)).setClickable(true);
     }
 
     private void upLevel() {
