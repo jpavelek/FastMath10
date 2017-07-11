@@ -43,5 +43,6 @@ public class EndGameScreen extends AppCompatActivity {
         //Done here, back to main screen
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
+        finish();
     }
 }
