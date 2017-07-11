@@ -135,6 +135,7 @@ public class GameScreen extends AppCompatActivity {
         intent.putExtra(ScoreDbHelper.COLUMN_NAME_SCORE, total_score);
         intent.putExtra(ScoreDbHelper.COLUMN_NAME_LEVEL, task_provider.getTaskLevel());
         startActivity(intent);
+        finish();
     }
 
     private void prepNewMove() {
