@@ -142,7 +142,7 @@ public class GameScreen extends AppCompatActivity {
 
     private void showEndgameScreen () {
         //We did not make the level, game ends. Log your name for the score and go back to main
-        Intent intent = new Intent(this, EndGameScreen.class);
+        Intent intent = new Intent(getApplicationContext(), EndGameScreen.class);
         intent.putExtra(ScoreDbHelper.COLUMN_NAME_SCORE, total_score);
         intent.putExtra(ScoreDbHelper.COLUMN_NAME_LEVEL, task_provider.getTaskLevel());
         startActivity(intent);

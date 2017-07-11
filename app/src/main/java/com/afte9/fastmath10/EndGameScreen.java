@@ -38,10 +38,11 @@ public class EndGameScreen extends AppCompatActivity {
         }
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
+        finish();
     }
     public void cancelClicked (View view) {
         //Done here, back to main screen
-        Intent i = new Intent(this, MainActivity.class);
+        Intent i = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(i);
         finish();
     }

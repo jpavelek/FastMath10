@@ -102,5 +102,6 @@ public class MainActivity extends AppCompatActivity {
     public void launchGame(View view) {
         Intent intent = new Intent(this, GameScreen.class);
         startActivity(intent);
+        finish();
     }
 }
