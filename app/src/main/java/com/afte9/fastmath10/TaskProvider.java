@@ -214,12 +214,14 @@ public final class TaskProvider {
                 break;
             case NINE:
                 a = randS()+2;
-                while ((a==3) || (a == 5) || (a == 7) || (a == 11) || (a == 13) || (a == 17)) a = randS()+2;
+                while ((a==3) || (a == 5) || (a == 7) || (a == 11)) a = randS()+2;
                 b = randS()+1;
-                while (((a % b != 0)) || (a == b) || (a/b == previous_task_result)) b = randS()+1;
+                while (((a % b != 0)) || (a == b) || (a/b == previous_task_result) || (b == 1)) b = randS()+1;
                 task_result = a / b;
                 task_choices[0] = task_result - (r.nextInt(3)+1);
+                while (task_choices[0] <=0) task_choices[0] = task_result - (r.nextInt(3)+1);
                 task_choices[1] = task_result + (r.nextInt(3)+1);
+                while (task_choices[1] ==0) task_choices[1] = task_result + (r.nextInt(3)+1);
                 task_choices[2] = task_result;
                 task_choices[3] = 3;
                 task_visual = String.format("%d / %d =", a, b);
@@ -229,6 +231,7 @@ public final class TaskProvider {
         }
         previous_task_result = task_result; //Save for the next round
         //Shuffle the position of correct result in between the buttons
+        //TODO - re-enable this forproduction code
         /*
         int seed = r.nextInt(3);
         a = task_choices[seed];
