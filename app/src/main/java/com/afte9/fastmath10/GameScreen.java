@@ -11,7 +11,6 @@ import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -47,6 +46,30 @@ public class GameScreen extends AppCompatActivity {
         String newTitle = String.format(getString(R.string.level_title_progress_format), getString(R.string.app_name), task_provider.getTaskLevel());
         getSupportActionBar().setTitle(newTitle);
         newMove();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        //Stop timers/pause game
+        timer.cancel();
+
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //Stop timers/pause game
+        timer.cancel();
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //Resume timers/continue game
+        if (timer!=null) timer.cancel();
+        prepNewMove();
     }
 
     public void choiceButtonsClicked(View view) {
