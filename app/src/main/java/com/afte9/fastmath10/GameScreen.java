@@ -17,7 +17,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class GameScreen extends AppCompatActivity {
-
+    private enum States {PLAY, ENDLEVEL};
+    private States state;
     private int total_score;
     private int remaining_millis;
     private int level_score;
@@ -38,6 +39,7 @@ public class GameScreen extends AppCompatActivity {
         getWindow().getDecorView().setBackground(bitmapDrawable);
 
         //Reset game from start
+        state = States.PLAY;
         total_score = 0;
         level_score = 0;
         level_move = 1;
@@ -60,16 +62,16 @@ public class GameScreen extends AppCompatActivity {
         super.onPause();
         //Stop timers/pause game
         timer.cancel();
-
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         //Resume timers/continue game
-        if (timer!=null) timer.cancel();
-        prepNewMove();
+        if (state == States.PLAY) {
+            if (timer != null) timer.cancel();
+            prepNewMove();
+        }
     }
 
     public void choiceButtonsClicked(View view) {
@@ -125,6 +127,7 @@ public class GameScreen extends AppCompatActivity {
 
     private void upLevel() {
         AlertDialog.Builder builder;
+        state = States.ENDLEVEL;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
@@ -155,6 +158,7 @@ public class GameScreen extends AppCompatActivity {
                             getSupportActionBar().setTitle(newTitle);
                             level_move = 1;
                             level_score = 0;
+                            state = States.PLAY;
                             newMove();
                         }
                     })
