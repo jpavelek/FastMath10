@@ -36,14 +36,11 @@ public class EndGameScreen extends AppCompatActivity {
 
             long newRowId = db.insert(ScoreDbHelper.TABLE_NAME, null, values);
         }
-        Intent i = new Intent(this, MainActivity.class);
-        startActivity(i);
+        //Back to main screen
         finish();
     }
     public void cancelClicked (View view) {
         //Done here, back to main screen
-        Intent i = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(i);
         finish();
     }
 }
