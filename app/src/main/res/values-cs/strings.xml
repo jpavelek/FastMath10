@@ -1,2 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">Fast Math 10</string>
+    <string name="action_reset_scores">Vynulovat výsledky</string>
+    <string name="button_cancel">Zrušit</string>
+    <string name="button_continue">Pokračovat</string>
+    <string name="button_save">Uložit</string>
+    <string name="default_empty_answer">5</string>
+    <string name="default_empty_score">Výsledek:</string>
+    <string name="default_empty_test">1 + 4 =</string>
+    <string name="dialog_gameover_title">Konec hry</string>
+    <string name="dialog_message_format">Získáno %d bodǔ</string>
+    <string name="dialog_title">Úroveň dokončena.</string>
+    <string name="end_game_message">Uložit jméno k tomuto výsledku?</string>
+    <string name="end_game_summary_default">Získáno 333 bodǔ na úrovni 2</string>
+    <string name="end_game_summary_format" formatted="false">Získáno %d bodǔ na úrovni %02d.</string>
+    <string name="level_01">Sčítání malých čísel</string>
+    <string name="level_02">Odčítání malých čísel</string>
+    <string name="level_03">Sčítání s výsledkem větším než 10</string>
+    <string name="level_04">Odčítání od čísla většího než 10</string>
+    <string name="level_05">Sčítání větších čísel</string>
+    <string name="level_06">Sčítání třech malých čísel</string>
+    <string name="level_07">Smíšené operace na malých číslech</string>
+    <string name="level_08">Násobení malých čísel</string>
+    <string name="level_09">Nejjednodušší dělení</string>
+    <string name="level_progress_default">Úroveň: 0</string>
+    <string name="level_title_progress_format" formatted="false">%s - Úroveň: %d</string>
+    <string name="no_scores">Žádné výsledky ... zatím</string>
+    <string name="score_formatted" formatted="false">Výsledek:%4d</string>
+    <string name="start_challenge">Spustit hru</string>
+    <string name="you_name_query">Jméno?</string>
+</resources>
