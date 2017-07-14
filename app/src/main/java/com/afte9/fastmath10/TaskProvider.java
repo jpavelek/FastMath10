@@ -163,7 +163,7 @@ public final class TaskProvider {
                 break;
             case FIVE:
                 a = randS()+1;
-                while (a>9) a = randS()+1;
+                while (a>7) a = randS()+1;
                 b = randS()+11;
                 while ((a+b>19) || (a+b == previous_task_result)) b = randS()+11;
                 task_result = a + b;
@@ -232,12 +232,13 @@ public final class TaskProvider {
         }
         previous_task_result = task_result; //Save for the next round
         //Shuffle the position of correct result in between the buttons
+        /*
         int seed = r.nextInt(3);
         a = task_choices[seed];
         task_choices[seed] = task_choices[2]; //the current correct answer swapped to new random position
         task_choices[2] = a;
         task_choices[3] = seed+1; //save the new correct position
-
+*/
     }
 
     public String getTaskVisual() {
