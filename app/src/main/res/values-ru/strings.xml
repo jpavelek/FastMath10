@@ -13,7 +13,7 @@
     <string name="dialog_title">Уровень закончен</string>
     <string name="end_game_message">Сохранить результат и имя?</string>
     <string name="end_game_summary_default">Собрано 333 очков на уровне 2</string>
-    <string name="end_game_summary_format">Собрано %d очков на уровне %02d.</string>
+    <string name="end_game_summary_format" formatted="false">Собрано %d очков на уровне %02d.</string>
     <string name="level_01">Складывать маленькие числа</string>
     <string name="level_02">Вычитать маленькие числа</string>
     <string name="level_03">Складывать числа с результатом выше 10</string>
@@ -24,9 +24,9 @@
     <string name="level_08">Самые простые умножения</string>
     <string name="level_09">Самые простые деления</string>
     <string name="level_progress_default">Уровень: 0</string>
-    <string name="level_title_progress_format">%s - Уровень: %d</string>
+    <string name="level_title_progress_format" formatted="false">%s - Уровень: %d</string>
     <string name="no_scores">Нет результатов ... пока</string>
-    <string name="score_formatted">Результат:%4d</string>
+    <string name="score_formatted" formatted="false">Результат:%4d</string>
     <string name="start_challenge">Начать</string>
     <string name="you_name_query">Имя?</string>
 </resources>
