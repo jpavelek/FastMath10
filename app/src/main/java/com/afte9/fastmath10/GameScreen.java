@@ -34,7 +34,7 @@ public class GameScreen extends AppCompatActivity {
 
         //Background
         Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.bg);
-        BitmapDrawable bitmapDrawable = new BitmapDrawable(getResources(),bmp);
+        BitmapDrawable bitmapDrawable = new BitmapDrawable(getResources(), bmp);
         bitmapDrawable.setTileModeXY(Shader.TileMode.REPEAT, Shader.TileMode.REPEAT);
         getWindow().getDecorView().setBackground(bitmapDrawable);
 
