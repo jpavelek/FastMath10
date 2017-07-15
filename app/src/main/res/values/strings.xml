@@ -4,7 +4,7 @@
     <string name="action_reset_scores">Reset scores</string>
     <string name="no_scores">No scores ... yet</string>
     <string name="default_empty_score">Score:</string>
-    <string name="score_formatted">Score :%4d</string>
+    <string name="score_formatted">Score : %4d</string>
     <string name="default_empty_test">1 + 4 =</string>
     <string name="default_empty_answer">5</string>
     <string name="level_title_progress_format" formatted="false">%s - Level: %d</string>

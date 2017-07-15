@@ -26,7 +26,7 @@
     <string name="level_progress_default">Úroveň: 0</string>
     <string name="level_title_progress_format" formatted="false">%s - Úroveň: %d</string>
     <string name="no_scores">Žádné výsledky ... zatím</string>
-    <string name="score_formatted" formatted="false">Výsledek:%4d</string>
+    <string name="score_formatted" formatted="false">Výsledek: %4d</string>
     <string name="start_challenge">Spustit hru</string>
     <string name="you_name_query">Jméno?</string>
 </resources>
