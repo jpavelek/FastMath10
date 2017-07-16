@@ -26,7 +26,7 @@
     <string name="level_progress_default">Уровень: 0</string>
     <string name="level_title_progress_format" formatted="false">%s - Уровень: %d</string>
     <string name="no_scores">Нет результатов ... пока</string>
-    <string name="score_formatted" formatted="false">Результат:%4d</string>
+    <string name="score_formatted" formatted="false">Результат: %4d</string>
     <string name="start_challenge">Начать</string>
     <string name="you_name_query">Имя?</string>
 </resources>
