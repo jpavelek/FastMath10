@@ -2,6 +2,8 @@ package com.afte9.fastmath10;
 
 
 
+import android.util.Log;
+
 import java.util.Random;
 
 public final class TaskProvider {
@@ -105,18 +107,18 @@ public final class TaskProvider {
         }
     }
 
-    private int randS() {
-        return r.nextInt(10);
+    private int rand10() {
+        return r.nextInt(10)+1;
     }
 
     public void getNextTask() {
         int a,b,c;
         switch (task_level) {
             case ONE:
-                a = randS()+1;
-                while (a>7) a = randS()+1;
-                b = randS()+1;
-                while ((a+b>10) || (a+b == previous_task_result)) b = randS()+1;
+                a = rand10();
+                while (a>7) a = rand10();
+                b = rand10()+1;
+                while ((a+b>10) || (a+b == previous_task_result)) b = rand10();
                 task_result = a + b;
                 task_choices[0] = task_result - (r.nextInt(3)+1);
                 while (task_choices[0] <= 0) task_choices[0] = task_result - (r.nextInt(3)+1);
@@ -126,88 +128,101 @@ public final class TaskProvider {
                 task_visual = String.format("%d + %d =", a, b);
                 break;
             case TWO:
-                a = randS()+3;
-                while (a>9) a = randS()+3;
-                b = randS();
-                while ((b == 0) || (b == a) || (b>a) || (a-b == previous_task_result)) b = randS();
+                a = rand10()+2;
+                while (a>9) a = rand10()+2;
+                b = rand10();
+                while ((b >= a) || (a-b == previous_task_result)) b = rand10();
                 task_result = a - b;
-                task_choices[0] = task_result - (r.nextInt(3)+1);
+                if (task_result == 1) {
+                    task_choices[0] = task_result + (r.nextInt(3) + 1);
+                    while (task_choices[0] <= 0) task_choices[0] = task_result + (r.nextInt(3) + 1);
+                } else {
+                    task_choices[0] = task_result - (r.nextInt(3) + 1);
+                    while (task_choices[0] <= 0) task_choices[0] = task_result - (r.nextInt(3) + 1);
+                }
                 task_choices[1] = task_result + (r.nextInt(3)+1);
+                while (task_choices[1] == task_choices[0]) task_choices[1] = task_result + (r.nextInt(3)+1);
                 task_choices[2] = task_result;
                 task_choices[3] = 3;
                 task_visual = String.format("%d - %d =", a, b);
                 break;
             case THREE:
-                a = randS()+3;
-                while (a>9) a = randS()+3;
-                b = randS()+1;
-                while ((a + b < 11) || (a+b == previous_task_result) || (b>9)) b = randS()+1;
+                a = rand10()+2;
+                while (a>9) a = rand10()+2;
+                b = rand10()+1;
+                while ((a + b < 11) || (a+b == previous_task_result) || (b>9)) b = rand10();
                 task_result = a + b;
                 task_choices[0] = task_result - (r.nextInt(3)+1);
+                while (task_choices[0] <=0) task_choices[0] = task_result - (r.nextInt(3)+1);
                 task_choices[1] = task_result + (r.nextInt(3)+1);
                 task_choices[2] = task_result;
                 task_choices[3] = 3;
                 task_visual = String.format("%d + %d =", a, b);
                 break;
             case FOUR:
-                a = randS()+11;
-                while (a>19) a = randS()+11;
-                b = randS();
-                while ((b == 0) || (a == b) || (a-b == previous_task_result)) b = randS();
+                a = rand10()+10;
+                while (a>19) a = rand10()+10;
+                b = rand10();
+                while ((a == b) || (a-b == previous_task_result)) b = rand10();
                 task_result = a - b;
                 task_choices[0] = task_result - (r.nextInt(3)+1);
+                while (task_choices[0] <=0) task_choices[0] = task_result - (r.nextInt(3)+1);
                 task_choices[1] = task_result + (r.nextInt(3)+1);
                 task_choices[2] = task_result;
                 task_choices[3] = 3;
                 task_visual = String.format("%d - %d =", a, b);
                 break;
             case FIVE:
-                a = randS()+1;
-                while (a>7) a = randS()+1;
-                b = randS()+11;
-                while ((a+b>19) || (a+b == previous_task_result)) b = randS()+11;
+                a = rand10();
+                while (a>7) a = rand10();
+                b = rand10()+10;
+                while ((a+b>19) || (a+b == previous_task_result)) b = rand10()+10;
                 task_result = a + b;
                 task_choices[0] = task_result - (r.nextInt(3)+1);
+                while (task_choices[0] <=0) task_choices[0] = task_result - (r.nextInt(3)+1);
                 task_choices[1] = task_result + (r.nextInt(3)+1);
                 task_choices[2] = task_result;
                 task_choices[3] = 3;
                 task_visual = String.format("%d + %d =", a, b);
                 break;
             case SIX:
-                a = randS()+1;
-                while (a>8) a = randS()+1;
-                b = randS()+1;
-                while (b>8) b = randS()+1;
-                c = randS()+1;
-                while ((a+b+c > 19) || (a+b+c == previous_task_result)) c = randS()+1;
+                a = rand10();
+                while (a>8) a = rand10();
+                b = rand10();
+                while (b>8) b = rand10();
+                c = rand10();
+                while ((a+b+c > 19) || (a+b+c == previous_task_result)) c = rand10();
                 task_result = a + b + c;
                 task_choices[0] = task_result - (r.nextInt(3)+1);
+                while (task_choices[0] <=0) task_choices[0] = task_result - (r.nextInt(3)+1);
                 task_choices[1] = task_result + (r.nextInt(3)+1);
                 task_choices[2] = task_result;
                 task_choices[3] = 3;
                 task_visual = String.format("%d + %d + %d =", a, b, c);
                 break;
             case SEVEN:
-                a = randS()+1;
-                while (a>9) a = randS()+1;
-                b = randS()+1;
-                while (b>9) b = randS()+1;
-                c = randS()+1;
-                while ((a+b-c < 0) || (a+b-c == previous_task_result)) c = randS()+1;
+                a = rand10();
+                while (a>9) a = rand10();
+                b = rand10();
+                while (b>9) b = rand10();
+                c = rand10();
+                while ((a+b-c < 0) || (a+b-c == previous_task_result)) c = rand10();
                 task_result = a + b - c;
                 task_choices[0] = task_result - (r.nextInt(3)+1);
+                while (task_choices[0] <=0) task_choices[0] = task_result - (r.nextInt(3)+1);
                 task_choices[1] = task_result + (r.nextInt(3)+1);
                 task_choices[2] = task_result;
                 task_choices[3] = 3;
                 task_visual = String.format("%d + %d - %d =", a, b, c);
                 break;
             case EIGHT:
-                a = randS()+2;
-                while (a>4) a = randS()+2;
-                b = randS()+2;
-                while ((a*b>18) || (a*b == previous_task_result)) b = randS()+2;
+                a = rand10()+1;
+                while (a>4) a = rand10()+1;
+                b = rand10()+1;
+                while ((a*b>18) || (a*b == previous_task_result)) b = rand10()+1;
                 task_result = a * b;
                 task_choices[0] = task_result - (r.nextInt(3)+1);
+                while (task_choices[0] <=0) task_choices[0] = task_result - (r.nextInt(3)+1);
                 task_choices[1] = task_result + (r.nextInt(3)+1);
                 task_choices[2] = task_result;
                 task_choices[3] = 3;
@@ -216,8 +231,8 @@ public final class TaskProvider {
             case NINE:
                 a = r.nextInt(15)+4;
                 while ((a==3) || (a == 5) || (a == 7) || (a == 11) || (a == 13) || (a == 17)) a = r.nextInt(15)+4;
-                b = randS()+1;
-                while (((a % b != 0)) || (a == b) || (b == 1)) b = randS()+1;
+                b = rand10();
+                while (((a % b != 0)) || (a == b) || (b == 1)) b = rand10();
                 task_result = a / b;
                 task_choices[0] = task_result - (r.nextInt(3)+1);
                 while (task_choices[0] <=0) task_choices[0] = task_result - (r.nextInt(3)+1);
@@ -232,11 +247,13 @@ public final class TaskProvider {
         }
         previous_task_result = task_result; //Save for the next round
         //Shuffle the position of correct result in between the buttons
+
         int seed = r.nextInt(3);
         a = task_choices[seed];
         task_choices[seed] = task_choices[2]; //the current correct answer swapped to new random position
         task_choices[2] = a;
         task_choices[3] = seed+1; //save the new correct position
+
     }
 
     public String getTaskVisual() {
