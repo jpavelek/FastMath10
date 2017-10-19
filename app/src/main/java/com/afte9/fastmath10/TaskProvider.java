@@ -120,9 +120,25 @@ public final class TaskProvider {
                 b = rand10()+1;
                 while ((a+b>10) || (a+b == previous_task_result)) b = rand10();
                 task_result = a + b;
-                task_choices[0] = task_result - (r.nextInt(3)+1);
-                while (task_choices[0] <= 0) task_choices[0] = task_result - (r.nextInt(3)+1);
-                task_choices[1] = task_result + (r.nextInt(3)+1);
+
+                task_choices[0] = -1;
+                if (((task_result<5) && (r.nextBoolean())) || (task_result >=9)) { // If result is small, then randomly do smaller option
+                    while ((task_choices[0] <= 0) || (task_choices[0] > 10)) task_choices[0] = task_result - (r.nextInt(1)+1);
+                } else { // but usually do the bigger option
+                    while ((task_choices[0] <= 0) || (task_choices[0] > 10)) task_choices[0] = task_result + (r.nextInt(1)+1);
+                }
+
+                task_choices[1] = -1;
+                if (task_result >= 9) {
+                    while ((task_choices[1] == task_choices[0]) || (task_choices[1] <= 0) || (task_choices[1] > 10)) {
+                        task_choices[1] = task_result - (r.nextInt(2) + 1);
+                    }
+                } else {
+                    while ((task_choices[1] == task_choices[0]) || (task_choices[1] <= 0) || (task_choices[1] > 10)) {
+                        task_choices[1] = task_result + (r.nextInt(2) + 1);
+                    }
+                }
+
                 task_choices[2] = task_result;
                 task_choices[3] = 3;
                 task_visual = String.format("%d + %d =", a, b);
