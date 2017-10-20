@@ -144,7 +144,7 @@ public final class TaskProvider {
                 task_visual = String.format("%d + %d =", a, b);
                 break;
             case TWO:
-                a = rand10()+2;
+                a = 10;
                 while (a>9) a = rand10()+2;
                 b = rand10();
                 while ((b >= a) || (a-b == previous_task_result)) b = rand10();
@@ -260,21 +260,30 @@ public final class TaskProvider {
                 task_choices[1] = task_result + (r.nextInt(3)+1);
                 while (task_choices[1] ==0) task_choices[1] = task_result + (r.nextInt(3)+1);
                 task_choices[2] = task_result;
-                task_choices[3] = 3;
+                task_choices[3] = 3; // position of the correct result
                 task_visual = String.format("%d / %d =", a, b);
                 break;
             default:
                 break;
         }
         previous_task_result = task_result; //Save for the next round
-        //Shuffle the position of correct result in between the buttons
 
-        int seed = r.nextInt(3);
-        a = task_choices[seed];
-        task_choices[seed] = task_choices[2]; //the current correct answer swapped to new random position
-        task_choices[2] = a;
-        task_choices[3] = seed+1; //save the new correct position
 
+        // Sort choices, this also randomizes correct result position
+        if ((task_choices[0] < task_choices[1]) &&  (task_choices[1] < task_choices[2])) {
+            // We are good, all sorted, no point randomizing.
+        } else {
+            for (int i = 0; i < 2; i++) {
+                if (task_choices[i] > task_choices[i+1]) {
+                    a = task_choices[i];
+                    if (task_choices[3] == i) task_choices[3] = i+1;
+                    else if (task_choices[3] == i+1) task_choices[3] = i;
+                    task_choices[i] = task_choices[i+1];
+                    task_choices[i+1] = a;
+                    i = -1; //restart the loop
+                }
+            }
+        }
     }
 
     public String getTaskVisual() {
